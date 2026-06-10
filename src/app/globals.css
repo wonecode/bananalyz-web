@@ -87,22 +87,27 @@
 }
 
 /* =============================================
-   FUMADOCS COMPONENT FIXES
+   FUMADOCS SIDEBAR SPACING FIX
+   Reduce the header (p-4 pb-2, gap-3) and footer (p-4 pt-2)
+   padding that creates excess whitespace on desktop
    ============================================= */
 
-/* Kill the sidebar links slot (desktop only) — it adds whitespace even when empty */
-#nd-sidebar [class*='border-b'],
-#nd-sidebar [class*='border-fd-border']:first-child {
-  display: none;
+/* Sidebar header: the div containing title + search */
+#nd-sidebar > .absolute > div:first-child {
+  gap: 0.5rem !important;   /* was gap-3 = 0.75rem */
+  padding: 0.75rem !important;  /* was p-4 = 1rem */
+  padding-bottom: 0.5rem !important; /* was pb-2 */
 }
 
-/* More targeted: hide any empty links container at top of sidebar */
-#nd-sidebar > div > div:empty,
-#nd-sidebar > div > [class*='p-']:empty {
-  display: none;
-  padding: 0;
-  margin: 0;
+/* Sidebar footer: the div containing the theme toggle */
+#nd-sidebar > .absolute > div:last-child {
+  padding: 0.75rem !important;  /* was p-4 = 1rem */
+  padding-top: 0.5rem !important; /* was pt-2 */
 }
+
+/* =============================================
+   FUMADOCS COMPONENT FIXES
+   ============================================= */
 
 /* Active sidebar item — blue accent */
 [data-active='true'] {
