@@ -45,7 +45,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">3. Eligibility</h2>
-              <p>You must be at least 13 years old to use Bananalyz, in accordance with Discord's own Terms of Service. By using Bananalyz, you represent that you meet this age requirement. If you are under 16 years old and located in the European Union, you may require parental consent depending on the laws applicable in your country.</p>
+              <p>You must be at least 13 years old to use Bananalyz, in accordance with Discord&apos;s own Terms of Service. By using Bananalyz, you represent that you meet this age requirement. If you are under 16 years old and located in the European Union, you may require parental consent depending on the laws applicable in your country.</p>
             </section>
 
             <section>
@@ -56,7 +56,7 @@ export default function TermsPage() {
                   'Attempt to manipulate, exploit, or abuse the prediction or scoring system',
                   'Use automated scripts, bots, or other tools to interact with Bananalyz on your behalf',
                   'Reverse-engineer, decompile, or attempt to extract the source code of the bot',
-                  'Use the service for any unlawful purpose or in violation of Discord's Terms of Service',
+                  "Use the service for any unlawful purpose or in violation of Discord's Terms of Service",
                   'Harass, threaten, or harm other users through or in connection with the service',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm list-none">
@@ -69,7 +69,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">5. Server administrators</h2>
-              <p>Server administrators who add Bananalyz to their Discord server are responsible for ensuring that its use complies with applicable laws and Discord's policies within their community. Jungle Squad is not responsible for how the bot is used within individual servers.</p>
+              <p>Server administrators who add Bananalyz to their Discord server are responsible for ensuring that its use complies with applicable laws and Discord&apos;s policies within their community. Jungle Squad is not responsible for how the bot is used within individual servers.</p>
             </section>
 
             <section>
@@ -84,7 +84,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">8. Disclaimer of warranties</h2>
-              <p>Bananalyz is provided "as is" and "as available" without any warranties of any kind, either express or implied. Jungle Squad does not warrant that the service will be uninterrupted, error-free, or free of viruses or other harmful components. Points, leaderboard rankings, and match data are provided for entertainment purposes only and have no monetary value.</p>
+              <p>Bananalyz is provided &quot;as is&quot; and &quot;as available&quot; without any warranties of any kind, either express or implied. Jungle Squad does not warrant that the service will be uninterrupted, error-free, or free of viruses or other harmful components. Points, leaderboard rankings, and match data are provided for entertainment purposes only and have no monetary value.</p>
             </section>
 
             <section>
@@ -94,7 +94,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">10. Governing law</h2>
-              <p>These Terms of Service are governed by the laws of the European Union and the applicable national laws of the operator's country of residence. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the competent courts in the EU.</p>
+              <p>These Terms of Service are governed by the laws of the European Union and the applicable national laws of the operator&apos;s country of residence. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the competent courts in the EU.</p>
             </section>
 
             <section>

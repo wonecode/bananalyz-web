@@ -100,7 +100,7 @@ export default function PrivacyPage() {
                 {[
                   { right: 'Right of access', desc: 'You can request a copy of all data we hold about you.' },
                   { right: 'Right to rectification', desc: 'You can request correction of inaccurate data.' },
-                  { right: 'Right to erasure', desc: 'You can request deletion of all your personal data ("right to be forgotten").' },
+                  { right: 'Right to erasure', desc: "You can request deletion of all your personal data ('right to be forgotten')." },
                   { right: 'Right to restriction', desc: 'You can request that we limit the processing of your data.' },
                   { right: 'Right to data portability', desc: 'You can request your data in a structured, machine-readable format.' },
                   { right: 'Right to object', desc: 'You can object to processing based on legitimate interests.' },
@@ -121,12 +121,12 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">9. Third-party services</h2>
-              <p>Bananalyz operates within the Discord platform. Discord's own Privacy Policy governs how Discord collects and processes data. Bananalyz only receives data that Discord explicitly passes to the bot via its API (user IDs, server IDs, and slash command inputs). We have no control over Discord's data practices.</p>
+              <p>Bananalyz operates within the Discord platform. Discord&apos;s own Privacy Policy governs how Discord collects and processes data. Bananalyz only receives data that Discord explicitly passes to the bot via its API (user IDs, server IDs, and slash command inputs). We have no control over Discord&apos;s data practices.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-bold text-white mb-3">10. Changes to this policy</h2>
-              <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. Significant changes will be announced in the official Discord community server. Continued use of Bananalyz after any changes constitutes your acceptance of the updated policy.</p>
+              <p>We may update this Privacy Policy from time to time. When we do, we will update the &quot;Last updated&quot; date at the top of this page. Significant changes will be announced in the official Discord community server. Continued use of Bananalyz after any changes constitutes your acceptance of the updated policy.</p>
             </section>
 
             <section>
