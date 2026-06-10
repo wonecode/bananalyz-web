@@ -1,9 +1,15 @@
 @import 'tailwindcss';
 
 @keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
 .animate-marquee {
-  animation: marquee linear infinite;
+  animation: marquee 32s linear infinite;
 }
