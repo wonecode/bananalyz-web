@@ -3,6 +3,9 @@ import type { ReactNode } from 'react';
 import { source } from '@/lib/source';
 import Link from 'next/link';
 
+const INVITE_URL =
+  'https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands';
+
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
@@ -10,18 +13,22 @@ export default function Layout({ children }: { children: ReactNode }) {
       nav={{
         title: (
           <Link href="/" className="flex items-center gap-2 font-semibold">
-            <span>🍌</span>
-            <span>Bananalyz</span>
+            <span className="text-lg">🍌</span>
+            <span className="text-white">Bananalyz</span>
           </Link>
         ),
       }}
       sidebar={{
         banner: (
           <Link
-            href="https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands"
+            href={INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full text-center px-3 py-2 rounded-lg bg-[#ffd43b] text-[#0f1a0f] text-sm font-semibold hover:bg-[#f0b800] transition-colors"
+            className="block w-full text-center px-3 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90"
+            style={{
+              background: '#5aa9ff',
+              color: '#0a0f1e',
+            }}
           >
             Add to Discord
           </Link>
