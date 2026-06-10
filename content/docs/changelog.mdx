@@ -1,0 +1,56 @@
+---
+title: Changelog
+description: All notable updates and improvements to Bananalyz.
+position: 6
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## v1.3.0 — June 2026
+
+**League support & ticker**
+
+- Added league ticker on the landing page showing live supported leagues
+- Inactive leagues are now greyed out in the ticker
+- Only supported leagues are displayed — removes confusion for unsupported ones
+
+<Callout type="info" title="LEC is live">
+    LEC predictions are fully available. LCK and LCS are in progress.
+</Callout>
+
+---
+
+## v1.2.0 — May 2026
+
+**Documentation**
+
+- Launched the full documentation site built with Fumadocs
+- Added pages: Introduction, Getting Started, Commands, Scoring, FAQ
+- Docs are now accessible at `/docs` from the landing page
+
+---
+
+## v1.1.0 — April 2026
+
+**Scoring system**
+
+- Correct winner pick: **+1 point**
+- Perfect score prediction: **+3 points**
+- Predictions lock automatically when the match starts
+
+<Callout type="warn" title="Predictions lock on match start">
+    Once a match begins, predictions are closed. Make sure to submit yours before kick-off.
+</Callout>
+
+---
+
+## v1.0.0 — March 2026
+
+**Initial release**
+
+- Bananalyz goes live on Discord
+- `/config` to set up the predictions channel
+- `/matches` to browse upcoming matches
+- `/leaderboard` to view server rankings
+- `/predictions` to check your personal stats
+- Automatic match sync every 5 minutes
