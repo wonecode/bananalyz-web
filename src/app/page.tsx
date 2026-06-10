@@ -411,6 +411,14 @@ export default function Home() {
           <div className="flex items-center gap-6">
             <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
             <Link
+              href="https://x.com/wonezer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/60 transition-colors"
+            >
+              Twitter
+            </Link>
+            <Link
               href="https://github.com/wonecode/banana-predi"
               target="_blank"
               rel="noopener noreferrer"
