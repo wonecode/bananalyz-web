@@ -1171,8 +1171,8 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Cards — asymmetric layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            {/* Cards — always 3 columns side by side */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
 
               {/* Correct winner */}
               <div
