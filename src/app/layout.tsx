@@ -1,38 +1,19 @@
-import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
+import type { ReactNode } from 'react';
+import { RootProvider } from 'fumadocs-ui/provider/next';
 import './globals.css';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Bananalyz — LoL esports predictions for Discord',
-    template: '%s | Bananalyz',
-  },
-  description:
-    'Predict League of Legends esports matches directly from Discord. Track your stats, compete on leaderboards, and climb with your server.',
-  metadataBase: new URL('https://bananalyz.junglesquad.fr'),
-  openGraph: {
-    title: 'Bananalyz',
-    description: 'LoL esports predictions for Discord',
-    url: 'https://bananalyz.junglesquad.fr',
-    siteName: 'Bananalyz',
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Bananalyz',
-    description: 'LoL esports predictions for Discord',
-  },
-};
-
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+                                     children,
+                                   }: {
+  children: ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={GeistSans.className}>{children}</body>
-    </html>
+      <html lang="fr" suppressHydrationWarning>
+      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <RootProvider>
+        {children}
+      </RootProvider>
+      </body>
+      </html>
   );
 }
