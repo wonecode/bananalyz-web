@@ -15,6 +15,18 @@ export default function Layout({ children }: { children: ReactNode }) {
         ),
         url: '/',
       }}
+      links={[
+        {
+          text: 'Add to Discord',
+          url: 'https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands',
+          external: true,
+        },
+        {
+          text: 'Report an issue',
+          url: 'https://x.com/wonezer',
+          external: true,
+        },
+      ]}
     >
       {children}
     </DocsLayout>
