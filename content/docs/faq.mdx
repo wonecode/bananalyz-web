@@ -3,35 +3,45 @@ title: FAQ
 description: Frequently asked questions about Bananalyz.
 ---
 
-## Can I change my prediction after submitting?
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Accordions, Accordion } from 'fumadocs-ui/components/accordion';
 
-Yes — you can update your prediction at any time **before the match starts**.
-Just click the buttons on the match embed again.
+<Accordions type="single">
+  <Accordion title="Can I change my prediction after submitting?">
+    Yes — you can update your prediction at any time **before the match starts**.
+    Just click the buttons on the match embed again.
+  </Accordion>
 
-## When do predictions lock?
+  <Accordion title="When do predictions lock?">
+    Predictions lock automatically when the match begins.
+    The bot syncs match statuses every 5 minutes.
+  </Accordion>
 
-Predictions lock automatically when the match begins. The bot syncs match statuses every 5 minutes.
+  <Accordion title="Why don't I see any match embeds?">
+    Make sure you've run `/config` and selected a predictions channel.
+    If matches are still not appearing, check that the bot has **Send Messages** and **Embed Links** permissions in that channel.
+  </Accordion>
 
-## Why don't I see any match embeds?
+  <Accordion title="Can I view my stats publicly?">
+    Yes — use `/predictions share:True` to post your stats and recent results publicly in the channel.
+  </Accordion>
 
-Make sure you've run `/config` and selected a predictions channel.
-If matches are still not appearing, check that the bot has permission to post in that channel.
+  <Accordion title="Can I see someone else's predictions?">
+    Yes — use `/predictions user:@username`. Their upcoming picks will be hidden to avoid spoilers 😈
+  </Accordion>
 
-## Can I view my stats publicly?
+  <Accordion title="Which leagues are supported?">
+    Currently **LEC** is enabled. More leagues are in development.
+    You can see the status of all leagues via `/help` on your server.
+  </Accordion>
 
-Yes — use `/predictions share:True` to post your stats and recent results publicly in the channel.
+  <Accordion title="The bot stopped posting match embeds. What do I do?">
+    1. Check that the bot is still in your server
+    2. Verify it has **Send Messages** + **Embed Links** permissions in the configured channel
+    3. Run `/config` again to refresh the channel setting
+  </Accordion>
+</Accordions>
 
-## Can I see someone else's predictions?
-
-Yes — use `/predictions user:@username`. Their upcoming picks will be hidden to avoid spoilers 😈
-
-## Which leagues are supported?
-
-Currently **LEC** is enabled. More leagues are in development.
-You can see the status of all leagues via `/help` on your server.
-
-## The bot stopped posting match embeds. What do I do?
-
-1. Check that the bot is still in your server
-2. Verify it has Send Messages + Embed Links permissions in the configured channel
-3. Run `/config` again to refresh the channel setting
+<Callout type="info" title="Still need help?">
+  Join our Discord community or open an issue on [GitHub](https://github.com/wonecode/banana-predi).
+</Callout>

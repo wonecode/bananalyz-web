@@ -3,22 +3,29 @@ title: Scoring
 description: How points are calculated for each prediction.
 ---
 
-## Point system
+import { Callout } from 'fumadocs-ui/components/callout';
 
 Each prediction is worth up to **5 points** (called bananas 🍌).
 
+## Point system
+
 | Outcome | Points |
 |---|---|
-| Correct winner | **+3** |
-| Exact series score | **+2** |
-| Both (perfect prediction) | **+5** ✨ |
-| Wrong winner | **+0** |
+| ✅ Correct winner | **+3** |
+| 🎯 Exact series score | **+2** |
+| ✨ Both (perfect prediction) | **+5** |
+| ❌ Wrong winner | **+0** |
+
+<Callout type="info" title="Perfect prediction">
+  A perfect prediction means you got both the **correct winner** and the **exact series score**.
+  That's the maximum 5 bananas in a single match.
+</Callout>
 
 ## Example
 
 Match: **G2 vs T1**, series format **Bo3**
 
-| Your prediction | Result | Points |
+| Your prediction | Actual result | Points |
 |---|---|---|
 | G2 wins 2-0 | G2 wins 2-0 | **+5** ✨ perfect |
 | G2 wins 2-1 | G2 wins 2-0 | **+3** correct winner |
@@ -26,10 +33,14 @@ Match: **G2 vs T1**, series format **Bo3**
 
 ## Prediction lock
 
-Predictions are locked automatically when a match starts. You cannot submit or update
-your pick after the match has begun.
+Predictions are locked automatically when a match starts.
+You cannot submit or update your pick after the match has begun.
+
+<Callout type="warn">
+  The bot syncs match statuses every **5 minutes**. There may be a short window between kick-off
+  and the lock being applied — late submissions during that window may be cancelled.
+</Callout>
 
 ## Points are final
 
 Once a match result is synced, points are assigned and cannot be changed.
-The sync runs automatically every 5 minutes.

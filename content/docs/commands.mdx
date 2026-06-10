@@ -3,6 +3,9 @@ title: Commands
 description: Full reference of all Bananalyz slash commands.
 ---
 
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+
 ## `/predictions`
 
 Show your stats and recent prediction results.
@@ -10,14 +13,25 @@ Show your stats and recent prediction results.
 | Option | Type | Required | Description |
 |---|---|---|---|
 | `user` | User | No | View another user's predictions (upcoming picks are hidden) |
-| `share` | Boolean | No | Post the result publicly in the channel (default: only visible to you) |
+| `share` | Boolean | No | Post the result publicly in the channel (default: ephemeral) |
 
-**Examples:**
-```
-/predictions
-/predictions user:@Singe
-/predictions share:True
-```
+<Tabs items={['Basic', 'View someone', 'Share publicly']}>
+  <Tab value="Basic">
+    ```
+    /predictions
+    ```
+  </Tab>
+  <Tab value="View someone">
+    ```
+    /predictions user:@Singe
+    ```
+  </Tab>
+  <Tab value="Share publicly">
+    ```
+    /predictions share:True
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -26,6 +40,10 @@ Show your stats and recent prediction results.
 List upcoming matches that are open for predictions on your server.
 
 No options — shows all matches with active prediction windows.
+
+```
+/matches
+```
 
 ---
 
@@ -37,17 +55,28 @@ Display the prediction leaderboard.
 |---|---|---|---|
 | `scope` | String | No | `server` (default) or `global` |
 
-**Examples:**
-```
-/leaderboard
-/leaderboard scope:global
-```
+<Tabs items={['Server', 'Global']}>
+  <Tab value="Server">
+    ```
+    /leaderboard
+    ```
+  </Tab>
+  <Tab value="Global">
+    ```
+    /leaderboard scope:global
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
-## `/config` *(Admin only)*
+## `/config`
 
-Configure Bananalyz for your server. Requires **Manage Server** permission.
+<Callout type="warn" title="Admin only">
+  Requires the **Manage Server** permission.
+</Callout>
+
+Configure Bananalyz for your server.
 
 | Option | Type | Required | Description |
 |---|---|---|---|
@@ -55,8 +84,16 @@ Configure Bananalyz for your server. Requires **Manage Server** permission.
 
 After running `/config`, a league selector dropdown appears to choose which leagues to enable.
 
+```
+/config predictions-channel: #predictions
+```
+
 ---
 
 ## `/help`
 
 Display a summary of all commands and prediction rules, with clickable command links.
+
+```
+/help
+```

@@ -3,18 +3,40 @@ title: Introduction
 description: Welcome to Bananalyz — LoL esports predictions for Discord.
 ---
 
-## What is Bananalyz?
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
 
-Bananalyz is a Discord bot that lets your server predict League of Legends esports match outcomes.
+Bananalyz is a Discord bot that lets your server predict **League of Legends esports** match outcomes.
 Pick the winner, predict the exact score, earn points, and compete on your server leaderboard.
+
+<Callout type="info" title="LEC is live">
+  LEC predictions are enabled right now. More leagues (LCK, LCS…) are coming soon.
+</Callout>
 
 ## Key features
 
-- **Interactive predictions** — submit picks directly via Discord buttons on match embeds
-- **Auto-sync** — matches and scores update every 5 minutes automatically
-- **Leaderboards** — server-level and global rankings
-- **Stats** — win rate, perfect predictions, total points via `/predictions`
-- **Multi-league support** — LEC enabled now, more leagues coming
+<Cards>
+  <Card
+    title="Interactive predictions"
+    description="Submit picks directly via Discord buttons on match embeds — no external app needed."
+    href="/docs/getting-started"
+  />
+  <Card
+    title="Auto-sync"
+    description="Matches and scores update every 5 minutes automatically. Zero manual work."
+    href="/docs/getting-started"
+  />
+  <Card
+    title="Leaderboards"
+    description="Compete server-wide or globally. Rankings update in real time after each match."
+    href="/docs/scoring"
+  />
+  <Card
+    title="Stats & history"
+    description="Track your win rate, perfect predictions, and total points via /predictions."
+    href="/docs/commands"
+  />
+</Cards>
 
 ## Quick start
 
@@ -22,3 +44,7 @@ Pick the winner, predict the exact score, earn points, and compete on your serve
 2. Run `/config` to set your predictions channel
 3. Wait for match embeds to appear — or use `/matches` to see upcoming ones
 4. Click the prediction buttons on a match embed to submit your pick
+
+<Callout type="warn" title="Admin required">
+  `/config` requires the **Manage Server** permission. Only admins can set up the bot.
+</Callout>

@@ -3,42 +3,55 @@ title: Getting started
 description: Add Bananalyz to your server and configure it in under a minute.
 ---
 
-## Requirements
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Callout } from 'fumadocs-ui/components/callout';
 
-Bananalyz needs the following Discord permissions:
+<Steps>
+  <Step>
+    ### Add the bot
 
-| Permission | Why |
-|---|---|
-| Send Messages | Post match embeds and prediction results |
-| Embed Links | Display rich embeds |
-| Use Application Commands | Register slash commands |
-| Read Message History | Update existing match embeds |
+    [Click here to invite Bananalyz](https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands) to your server.
 
-## 1. Add the bot
+    Select the server you want to add it to and approve the requested permissions.
 
-[Click here to add Bananalyz to your server.](https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands)
+    | Permission | Why |
+    |---|---|
+    | Send Messages | Post match embeds and prediction results |
+    | Embed Links | Display rich embeds |
+    | Use Application Commands | Register slash commands |
+    | Read Message History | Update existing match embeds |
+  </Step>
 
-Make sure you select the server you want to add it to and approve the requested permissions.
+  <Step>
+    ### Configure your predictions channel
 
-## 2. Configure your predictions channel
+    Run `/config` in any channel (requires **Manage Server** permission):
 
-Run `/config` in any channel (requires **Manage Server** permission):
+    ```
+    /config predictions-channel: #predictions
+    ```
 
-```
-/config predictions-channel: #predictions
-```
+    This sets the channel where upcoming match embeds will be posted automatically.
+  </Step>
 
-This sets the channel where upcoming match embeds will be posted automatically.
+  <Step>
+    ### Enable leagues
 
-## 3. Enable leagues
+    After running `/config`, a dropdown will appear letting you select which leagues to enable for your server.
 
-After running `/config`, a dropdown will appear letting you select which leagues to enable for your server.
-**LEC is enabled by default.** More leagues are coming soon.
+    <Callout type="info">
+      **LEC is enabled by default.** More leagues are coming soon.
+    </Callout>
+  </Step>
 
-## 4. Start predicting
+  <Step>
+    ### Start predicting
 
-Once a match embed appears in your predictions channel, members can click the buttons to submit their pick:
-- Choose the winning team
-- Predict the exact series score (e.g. 2-0, 2-1)
+    Once a match embed appears in your predictions channel, members can click the buttons to submit their pick:
 
-Predictions lock automatically when the match starts.
+    - Choose the **winning team**
+    - Predict the **exact series score** (e.g. 3-0, 3-1, 3-2)
+
+    Predictions lock automatically when the match starts.
+  </Step>
+</Steps>
