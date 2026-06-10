@@ -17,14 +17,12 @@ export default function Layout({ children }: { children: ReactNode }) {
             <span className="text-white">Bananalyz</span>
           </Link>
         ),
-      }}
-      sidebar={{
-        banner: (
+        children: (
           <Link
             href={INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full text-center px-3 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90"
+            className="ml-auto px-3 py-1.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 hidden md:block"
             style={{
               background: '#5aa9ff',
               color: '#0a0f1e',
