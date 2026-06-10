@@ -11,6 +11,8 @@ import {
   Users,
   Check,
   RefreshCw,
+  Globe,
+  Server,
 } from 'lucide-react';
 
 const INVITE_URL =
@@ -996,20 +998,47 @@ export default function Home() {
                   <Trophy size={11} /> /leaderboard
                 </div>
                 <h2 className="text-4xl font-black tracking-tight mb-4">
-                  Compete with
+                  Two leaderboards,
                   <br />
-                  <span style={{ color: '#5aa9ff' }}>your whole server</span>
+                  <span style={{ color: '#5aa9ff' }}>one command</span>
                 </h2>
                 <p className="mb-7 leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  A per-server leaderboard updates after every scored match. See who&apos;s the sharpest
-                  analyst in your community.
+                  Compete within your server or go head-to-head against predictors from every community. Both leaderboards update automatically after each scored match.
                 </p>
+
+                {/* Server vs Global pills */}
+                <div className="flex gap-3 mb-7">
+                  <div
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+                    style={{
+                      background: 'rgba(90,169,255,0.08)',
+                      border: '1px solid rgba(90,169,255,0.2)',
+                      color: '#5aa9ff',
+                    }}
+                  >
+                    <Server size={14} />
+                    Server leaderboard
+                  </div>
+                  <div
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+                    style={{
+                      background: 'rgba(196,132,252,0.08)',
+                      border: '1px solid rgba(196,132,252,0.2)',
+                      color: '#c084fc',
+                    }}
+                  >
+                    <Globe size={14} />
+                    Global leaderboard
+                  </div>
+                </div>
+
                 <ul className="space-y-3">
                   {[
-                    'Paginated leaderboard — up to 100 players',
+                    'Server ranking — compete with your community',
+                    'Global ranking — climb across all servers',
                     'Banana points, accuracy & perfect score columns',
+                    'Paginated — up to 100 players per page',
                     'Updated automatically after each match',
-                    'Global leaderboard across all servers',
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-sm">
                       <span
