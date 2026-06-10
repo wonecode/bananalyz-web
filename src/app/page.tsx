@@ -55,12 +55,12 @@ const commands = [
 ];
 
 const TEAM_LOGOS: Record<string, string> = {
-  'G2 Esports': '/logos/g2.png',
-  'Karmine Corp': '/logos/kc.png',
+  'G2 Esports': '/logos/g2.webp',
+  'Karmine Corp': '/logos/kc.webp',
   'Fnatic': '/logos/fnc.png',
   'Team Vitality': '/logos/vit.png',
   'Team Heretics': '/logos/th.png',
-  'Movistar KOI': '/logos/mkoi.png',
+  'Movistar KOI': '/logos/mkoi.webp',
   'SK Gaming': '/logos/sk.png',
   'Giants': '/logos/gx.png',
   'NAVI': '/logos/navi.png',
@@ -68,14 +68,14 @@ const TEAM_LOGOS: Record<string, string> = {
 };
 
 const LEAGUE_LOGOS: Record<string, string> = {
-  'LEC': '/logos/lec.png',
-  'LCK': '/logos/lck.png',
+  'LEC': '/logos/lec.webp',
+  'LCK': '/logos/lck.webp',
   'LPL': '/logos/lpl.png',
-  'LFL': '/logos/lfl.png',
-  'MSI': '/logos/msi.png',
+  'LFL': '/logos/lfl.webp',
+  'MSI': '/logos/msi.webp',
   'Worlds': '/logos/worlds.png',
-  'EMEA Masters': '/logos/emea_masters.png',
-  'First Stand': '/logos/first_stand.png',
+  'EMEA Masters': '/logos/emea_masters.webp',
+  'First Stand': '/logos/first_stand.webp',
 };
 
 function TeamLogo({ name, size = 20 }: { name: string; size?: number }) {
@@ -246,7 +246,7 @@ function MatchEmbed() {
         <div className="px-4 pb-3">
           <p className="text-[11px] mb-1" style={{ color: '#80848e' }}>Predictors in this server</p>
           <p className="text-xs" style={{ color: '#4f96ff' }}>
-            @Bonobo Éolien, @Macaque Gambler 🎲, @Singe Agressif, @Bonobo soyeux
+            @Bonobo Éolien, @Macaque Gambler, @Singe Agressif, @Bonobo soyeux
           </p>
         </div>
 
@@ -508,7 +508,7 @@ function LeaderboardEmbed() {
     { rank: 4, name: 'Singe Cultivé', pts: 179, acc: '75%', perfect: '37%' },
     { rank: 5, name: 'Général Tropical', pts: 178, acc: '77%', perfect: '40%' },
     { rank: 6, name: 'Bonobo Éolien', pts: 177, acc: '84%', perfect: '26%' },
-    { rank: 7, name: 'Macaque Gambler 🎲', pts: 173, acc: '73%', perfect: '45%' },
+    { rank: 7, name: 'Macaque Gambler', pts: 173, acc: '73%', perfect: '45%' },
     { rank: 8, name: 'Singe dans le Coma', pts: 166, acc: '76%', perfect: '36%' },
   ];
 
@@ -553,8 +553,8 @@ function LeaderboardEmbed() {
                 key={p.rank}
                 className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs"
                 style={{
-                  background: rs ? rs.bg : p.rank === 6 ? 'rgba(79,150,255,0.08)' : 'transparent',
-                  border: p.rank === 6 ? '1px solid rgba(79,150,255,0.2)' : '1px solid transparent',
+                  background: rs ? rs.bg : p.rank === 5 ? 'rgba(79,150,255,0.08)' : 'transparent',
+                  border: p.rank === 5 ? '1px solid rgba(79,150,255,0.2)' : '1px solid transparent',
                 }}
               >
                 <span
@@ -565,10 +565,10 @@ function LeaderboardEmbed() {
                 </span>
                 <span
                   className="font-medium flex-1 truncate text-[12px]"
-                  style={{ color: p.rank === 6 ? '#93c5fd' : '#d1d5db' }}
+                  style={{ color: p.rank === 5 ? '#93c5fd' : '#d1d5db' }}
                 >
                   @{p.name}
-                  {p.rank === 6 && (
+                  {p.rank === 5 && (
                     <span
                       className="ml-1.5 text-[9px] px-1 py-0.5 rounded uppercase tracking-wider"
                       style={{ background: 'rgba(79,150,255,0.2)', color: '#4f96ff' }}
@@ -619,14 +619,14 @@ function LeaderboardEmbed() {
 }
 
 const LEAGUES_TICKER = [
-  { name: 'LEC', src: '/logos/lec.png', active: true },
-  { name: 'LCK', src: '/logos/lck.png', active: true },
+  { name: 'LEC', src: '/logos/lec.webp', active: true },
+  { name: 'LCK', src: '/logos/lck.webp', active: true },
   { name: 'LPL', src: '/logos/lpl.png', active: false },
-  { name: 'LFL', src: '/logos/lfl.png', active: false },
-  { name: 'MSI', src: '/logos/msi.png', active: false },
+  { name: 'LFL', src: '/logos/lfl.webp', active: false },
+  { name: 'MSI', src: '/logos/msi.webp', active: false },
   { name: 'Worlds', src: '/logos/worlds.png', active: false },
-  { name: 'EMEA Masters', src: '/logos/emea_masters.png', active: false },
-  { name: 'First Stand', src: '/logos/first_stand.png', active: false },
+  { name: 'EMEA Masters', src: '/logos/emea_masters.webp', active: false },
+  { name: 'First Stand', src: '/logos/first_stand.webp', active: false },
 ];
 
 function Ticker({
@@ -820,8 +820,6 @@ export default function Home() {
               className="flex items-center justify-center gap-6 mb-16 text-sm"
               style={{ color: 'rgba(255,255,255,0.25)' }}
             >
-              <div className="flex items-center gap-1.5"><Users size={12} /> 20+ Discord servers</div>
-              <span>·</span>
               <div className="flex items-center gap-1.5"><Zap size={12} /> Free to use</div>
               <span>·</span>
               <div className="flex items-center gap-1.5"><Clock size={12} /> Setup in 1 minute</div>
@@ -938,7 +936,7 @@ export default function Home() {
               </div>
               <div className="order-1 md:order-2">
                 <div
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 uppercase tracking-wide"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 tracking-wide"
                   style={{
                     background: 'rgba(251,191,36,0.1)',
                     border: '1px solid rgba(251,191,36,0.2)',
@@ -988,7 +986,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-20 items-center">
               <div>
                 <div
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 uppercase tracking-wide"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 tracking-wide"
                   style={{
                     background: 'rgba(90,169,255,0.1)',
                     border: '1px solid rgba(90,169,255,0.2)',
@@ -1212,7 +1210,7 @@ export default function Home() {
             >
               Add to Discord <ChevronRight size={18} />
             </Link>
-            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>Free · No account required</p>
+            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>Free to use</p>
           </div>
         </section>
       </main>
@@ -1226,8 +1224,8 @@ export default function Home() {
           style={{ color: 'rgba(255,255,255,0.2)' }}
         >
           <div className="flex items-center gap-2">
-            <span>🍌</span>
-            <span>Bananalyz — Made with love by Jungle Squad</span>
+            <span className='font-semibold'>Bananalyz</span>
+            <span> — Made with 🍌 by Jungle Squad</span>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/docs" className="hover:text-white/50 transition-colors">Docs</Link>
