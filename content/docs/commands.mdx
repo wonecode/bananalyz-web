@@ -1,0 +1,62 @@
+---
+title: Commands
+description: Full reference of all Bananalyz slash commands.
+---
+
+## `/predictions`
+
+Show your stats and recent prediction results.
+
+| Option | Type | Required | Description |
+|---|---|---|---|
+| `user` | User | No | View another user's predictions (upcoming picks are hidden) |
+| `share` | Boolean | No | Post the result publicly in the channel (default: only visible to you) |
+
+**Examples:**
+```
+/predictions
+/predictions user:@Singe
+/predictions share:True
+```
+
+---
+
+## `/matches`
+
+List upcoming matches that are open for predictions on your server.
+
+No options — shows all matches with active prediction windows.
+
+---
+
+## `/leaderboard`
+
+Display the prediction leaderboard.
+
+| Option | Type | Required | Description |
+|---|---|---|---|
+| `scope` | String | No | `server` (default) or `global` |
+
+**Examples:**
+```
+/leaderboard
+/leaderboard scope:global
+```
+
+---
+
+## `/config` *(Admin only)*
+
+Configure Bananalyz for your server. Requires **Manage Server** permission.
+
+| Option | Type | Required | Description |
+|---|---|---|---|
+| `predictions-channel` | Channel | Yes | Text channel where match embeds will be posted |
+
+After running `/config`, a league selector dropdown appears to choose which leagues to enable.
+
+---
+
+## `/help`
+
+Display a summary of all commands and prediction rules, with clickable command links.

@@ -1,0 +1,44 @@
+---
+title: Getting started
+description: Add Bananalyz to your server and configure it in under a minute.
+---
+
+## Requirements
+
+Bananalyz needs the following Discord permissions:
+
+| Permission | Why |
+|---|---|
+| Send Messages | Post match embeds and prediction results |
+| Embed Links | Display rich embeds |
+| Use Application Commands | Register slash commands |
+| Read Message History | Update existing match embeds |
+
+## 1. Add the bot
+
+[Click here to add Bananalyz to your server.](https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands)
+
+Make sure you select the server you want to add it to and approve the requested permissions.
+
+## 2. Configure your predictions channel
+
+Run `/config` in any channel (requires **Manage Server** permission):
+
+```
+/config predictions-channel: #predictions
+```
+
+This sets the channel where upcoming match embeds will be posted automatically.
+
+## 3. Enable leagues
+
+After running `/config`, a dropdown will appear letting you select which leagues to enable for your server.
+**LEC is enabled by default.** More leagues are coming soon.
+
+## 4. Start predicting
+
+Once a match embed appears in your predictions channel, members can click the buttons to submit their pick:
+- Choose the winning team
+- Predict the exact series score (e.g. 2-0, 2-1)
+
+Predictions lock automatically when the match starts.

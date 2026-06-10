@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+:root {
+  --banana: #ffd43b;
+  --banana-dark: #f0b800;
+  --banana-light: #fff3b0;
+  --jungle-dark: #0f1a0f;
+  --jungle-mid: #1a2e1a;
+}
+
+@theme inline {
+  --color-banana: var(--banana);
+  --color-banana-dark: var(--banana-dark);
+  --color-banana-light: var(--banana-light);
+  --color-jungle-dark: var(--jungle-dark);
+  --color-jungle-mid: var(--jungle-mid);
+  --font-sans: var(--font-geist-sans);
+}
