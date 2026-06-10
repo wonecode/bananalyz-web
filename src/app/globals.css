@@ -31,49 +31,30 @@
 
 /* =============================================
    FUMADOCS OVERRIDES — DARK MODE (default)
-   Override all violet/pink/green Fumadocs defaults
-   with the blue/yellow Bananalyz palette
    ============================================= */
 
 .dark,
 [data-theme='dark'],
 :root {
-  /* Backgrounds */
   --color-fd-background: #0a0f1e;
   --color-fd-foreground: #e8edf8;
-
-  /* Muted */
   --color-fd-muted: #0e1629;
   --color-fd-muted-foreground: rgba(255, 255, 255, 0.45);
-
-  /* Cards / popovers */
   --color-fd-card: #0e1629;
   --color-fd-card-foreground: #e8edf8;
   --color-fd-popover: #121d36;
   --color-fd-popover-foreground: #e8edf8;
-
-  /* Border & input */
   --color-fd-border: rgba(90, 169, 255, 0.12);
   --color-fd-input: rgba(90, 169, 255, 0.1);
   --color-fd-ring: #5aa9ff;
-
-  /* Primary = blue */
   --color-fd-primary: #5aa9ff;
   --color-fd-primary-foreground: #0a0f1e;
-
-  /* Secondary = dark blue surface */
   --color-fd-secondary: #121d36;
   --color-fd-secondary-foreground: #e8edf8;
-
-  /* Accent = banana yellow */
   --color-fd-accent: rgba(90, 169, 255, 0.1);
   --color-fd-accent-foreground: #5aa9ff;
-
-  /* Sidebar */
   --color-fd-sidebar: #080d1a;
   --color-fd-sidebar-foreground: #e8edf8;
-
-  /* Nav */
   --color-fd-navbar: #0a0f1e;
 }
 
@@ -109,24 +90,35 @@
    FUMADOCS COMPONENT FIXES
    ============================================= */
 
-/* Active sidebar item — use blue accent not violet */
+/* Kill the sidebar links slot (desktop only) — it adds whitespace even when empty */
+#nd-sidebar [class*='border-b'],
+#nd-sidebar [class*='border-fd-border']:first-child {
+  display: none;
+}
+
+/* More targeted: hide any empty links container at top of sidebar */
+#nd-sidebar > div > div:empty,
+#nd-sidebar > div > [class*='p-']:empty {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Active sidebar item — blue accent */
 [data-active='true'] {
   background-color: rgba(90, 169, 255, 0.1) !important;
   color: #5aa9ff !important;
 }
 
-/* Sidebar active item left indicator */
 [data-active='true']::before {
   background-color: #5aa9ff !important;
 }
 
-/* On-this-page active link */
-.data-\[active\=true\]\:text-fd-primary[data-active='true'],
 [data-active='true'] .text-fd-primary {
   color: #5aa9ff !important;
 }
 
-/* Inline code blocks */
+/* Inline code */
 .fd-prose code:not(pre code) {
   background-color: rgba(90, 169, 255, 0.1);
   color: #5aa9ff;
@@ -142,20 +134,6 @@
   border: 1px solid rgba(90, 169, 255, 0.12);
 }
 
-/* Headings in docs — anchor links */
-.fd-prose h1,
-.fd-prose h2,
-.fd-prose h3,
-.fd-prose h4 {
-  color: inherit;
-}
-
-.fd-prose h2 a,
-.fd-prose h3 a {
-  color: inherit;
-  text-decoration: none;
-}
-
 /* Links */
 .fd-prose a {
   color: #5aa9ff;
@@ -165,7 +143,7 @@
   color: #7bbeff;
 }
 
-/* Callout / note boxes */
+/* Callout */
 .fd-callout {
   border-color: rgba(90, 169, 255, 0.2);
   background-color: rgba(90, 169, 255, 0.05);
