@@ -619,27 +619,14 @@ function LeaderboardEmbed() {
 }
 
 const LEAGUES_TICKER = [
-  { name: 'LEC', src: '/logos/lec.png' },
-  { name: 'LCK', src: '/logos/lck.png' },
-  { name: 'LPL', src: '/logos/lpl.png' },
-  { name: 'LFL', src: '/logos/lfl.png' },
-  { name: 'MSI', src: '/logos/msi.png' },
-  { name: 'Worlds', src: '/logos/worlds.png' },
-  { name: 'EMEA Masters', src: '/logos/emea_masters.png' },
-  { name: 'First Stand', src: '/logos/first_stand.png' },
-];
-
-const TEAMS_TICKER = [
-  { name: 'G2 Esports', src: '/logos/g2.png' },
-  { name: 'Karmine Corp', src: '/logos/kc.png' },
-  { name: 'Fnatic', src: '/logos/fnc.png' },
-  { name: 'Team Vitality', src: '/logos/vit.png' },
-  { name: 'Team Heretics', src: '/logos/th.png' },
-  { name: 'Movistar KOI', src: '/logos/mkoi.png' },
-  { name: 'SK Gaming', src: '/logos/sk.png' },
-  { name: 'Giants', src: '/logos/gx.png' },
-  { name: 'NAVI', src: '/logos/navi.png' },
-  { name: 'Shopify Rebellion', src: '/logos/shft.png' },
+  { name: 'LEC', src: '/logos/lec.png', active: true },
+  { name: 'LCK', src: '/logos/lck.png', active: true },
+  { name: 'LPL', src: '/logos/lpl.png', active: false },
+  { name: 'LFL', src: '/logos/lfl.png', active: false },
+  { name: 'MSI', src: '/logos/msi.png', active: false },
+  { name: 'Worlds', src: '/logos/worlds.png', active: false },
+  { name: 'EMEA Masters', src: '/logos/emea_masters.png', active: false },
+  { name: 'First Stand', src: '/logos/first_stand.png', active: false },
 ];
 
 function Ticker({
@@ -647,7 +634,7 @@ function Ticker({
   reverse = false,
   speed = '32s',
 }: {
-  items: { name: string; src: string }[];
+  items: { name: string; src: string; active: boolean }[];
   reverse?: boolean;
   speed?: string;
 }) {
@@ -667,14 +654,18 @@ function Ticker({
         }}
       >
         {doubled.map((l, i) => (
-          <div key={i} className="flex items-center gap-2.5 shrink-0">
+          <div
+            key={i}
+            className="flex items-center gap-2.5 shrink-0"
+            style={{ opacity: l.active ? 1 : 0.25 }}
+          >
             <div
               className="w-8 h-8 rounded-xl flex items-center justify-center"
               style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)' }}
             >
               <Image src={l.src} alt={l.name} width={20} height={20} className="object-contain" />
             </div>
-            <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <span className="text-sm font-medium" style={{ color: l.active ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.2)' }}>
               {l.name}
             </span>
           </div>
@@ -859,12 +850,9 @@ export default function Home() {
               className="text-[11px] font-bold uppercase tracking-widest text-center mb-5"
               style={{ color: 'rgba(255,255,255,0.2)' }}
             >
-              Supported leagues &amp; teams
+              Supported leagues
             </p>
-            <div className="space-y-3">
-              <Ticker items={LEAGUES_TICKER} speed="30s" />
-              <Ticker items={TEAMS_TICKER} reverse speed="24s" />
-            </div>
+            <Ticker items={LEAGUES_TICKER} speed="30s" />
           </div>
         </section>
 
