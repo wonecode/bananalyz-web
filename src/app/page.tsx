@@ -1161,52 +1161,154 @@ export default function Home() {
           className="py-28 px-6"
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
         >
-          <div className="mx-auto max-w-3xl">
-            <div className="text-center mb-12">
+          <div className="mx-auto max-w-4xl">
+            {/* Header */}
+            <div className="text-center mb-14">
               <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#5aa9ff' }}>Scoring</p>
               <h2 className="text-4xl font-black tracking-tight mb-3">How scoring works</h2>
-              <p style={{ color: 'rgba(255,255,255,0.4)' }}>Every prediction is worth up to 5 bananas 🍌</p>
+              <p style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Every correct prediction earns bananas 🍌 — nail the exact score for a bonus.
+              </p>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+
+            {/* Cards — asymmetric layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+
+              {/* Correct winner */}
               <div
-                className="p-6 rounded-2xl text-center"
+                className="p-6 rounded-2xl flex flex-col gap-3"
                 style={{
-                  background: 'rgba(90,169,255,0.05)',
-                  border: '1px solid rgba(90,169,255,0.15)',
-                }}
-              >
-                <div className="text-5xl font-black mb-2" style={{ color: '#5aa9ff' }}>+3</div>
-                <div className="text-sm font-bold mb-1 text-white">Correct winner</div>
-                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Pick the right team</div>
-              </div>
-              <div
-                className="p-6 rounded-2xl text-center"
-                style={{
-                  background: 'rgba(90,169,255,0.05)',
-                  border: '1px solid rgba(90,169,255,0.15)',
-                }}
-              >
-                <div className="text-5xl font-black mb-2" style={{ color: '#5aa9ff' }}>+2</div>
-                <div className="text-sm font-bold mb-1 text-white">Exact score</div>
-                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Predict the exact series score</div>
-              </div>
-              <div
-                className="p-6 rounded-2xl text-center relative overflow-hidden"
-                style={{
-                  background: 'rgba(255,212,59,0.06)',
-                  border: '1px solid rgba(255,212,59,0.25)',
+                  background: 'rgba(90,169,255,0.04)',
+                  border: '1px solid rgba(90,169,255,0.12)',
                 }}
               >
                 <div
-                  className="absolute inset-0 blur-2xl"
-                  style={{ background: 'rgba(255,212,59,0.05)' }}
-                />
-                <div className="relative">
-                  <div className="text-5xl font-black mb-2" style={{ color: '#ffd43b' }}>✨5</div>
-                  <div className="text-sm font-bold mb-1 text-white">Perfect</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Winner + exact score</div>
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+                  style={{ background: 'rgba(90,169,255,0.1)', border: '1px solid rgba(90,169,255,0.2)' }}
+                >
+                  🎯
+                </div>
+                <div>
+                  <div className="text-4xl font-black tracking-tight mb-1" style={{ color: '#5aa9ff' }}>+3</div>
+                  <div className="text-sm font-bold text-white mb-1">Correct winner</div>
+                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    You picked the right team — regardless of the final score.
+                  </div>
+                </div>
+                {/* mini progress bar */}
+                <div className="mt-auto pt-2">
+                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                    <span>base reward</span>
+                    <span>3 / 5</span>
+                  </div>
+                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div className="h-full rounded-full" style={{ width: '60%', background: '#5aa9ff' }} />
+                  </div>
                 </div>
               </div>
+
+              {/* Exact score */}
+              <div
+                className="p-6 rounded-2xl flex flex-col gap-3"
+                style={{
+                  background: 'rgba(90,169,255,0.04)',
+                  border: '1px solid rgba(90,169,255,0.12)',
+                }}
+              >
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+                  style={{ background: 'rgba(90,169,255,0.1)', border: '1px solid rgba(90,169,255,0.2)' }}
+                >
+                  📊
+                </div>
+                <div>
+                  <div className="text-4xl font-black tracking-tight mb-1" style={{ color: '#5aa9ff' }}>+2</div>
+                  <div className="text-sm font-bold text-white mb-1">Exact score</div>
+                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    You also predicted the exact series score (e.g. 3-1).
+                  </div>
+                </div>
+                <div className="mt-auto pt-2">
+                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                    <span>bonus</span>
+                    <span>2 / 5</span>
+                  </div>
+                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div className="h-full rounded-full" style={{ width: '40%', background: '#5aa9ff' }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Perfect — featured card */}
+              <div
+                className="p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,212,59,0.07) 0%, rgba(251,146,36,0.05) 100%)',
+                  border: '1px solid rgba(255,212,59,0.22)',
+                }}
+              >
+                {/* ambient glow */}
+                <div
+                  className="absolute -top-8 -right-8 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                  style={{ background: 'rgba(255,212,59,0.12)' }}
+                />
+
+                <div className="relative flex items-center justify-between">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+                    style={{ background: 'rgba(255,212,59,0.12)', border: '1px solid rgba(255,212,59,0.25)' }}
+                  >
+                    ✨
+                  </div>
+                  <span
+                    className="text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide uppercase"
+                    style={{ background: 'rgba(255,212,59,0.12)', color: '#ffd43b', border: '1px solid rgba(255,212,59,0.2)' }}
+                  >
+                    Max
+                  </span>
+                </div>
+
+                <div className="relative">
+                  <div
+                    className="text-4xl font-black tracking-tight mb-1"
+                    style={{ color: '#ffd43b' }}
+                  >
+                    +5
+                  </div>
+                  <div className="text-sm font-bold text-white mb-1">Perfect prediction</div>
+                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    Right winner <span style={{ color: 'rgba(255,255,255,0.2)' }}>+</span> exact score — maximum reward.
+                  </div>
+                </div>
+
+                <div className="relative mt-auto pt-2">
+                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,212,59,0.4)' }}>
+                    <span>full reward</span>
+                    <span>5 / 5</span>
+                  </div>
+                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div
+                      className="h-full rounded-full"
+                      style={{ width: '100%', background: 'linear-gradient(90deg, #ffd43b, #fb923c)' }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom note */}
+            <div
+              className="flex items-start gap-3 px-5 py-4 rounded-xl"
+              style={{
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+            >
+              <span className="text-base shrink-0 mt-0.5">🍌</span>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Points are awarded automatically once the match result is confirmed. You can update your prediction at any time{' '}
+                <span style={{ color: 'rgba(255,255,255,0.6)' }}>until the match starts</span>.
+              </p>
             </div>
           </div>
         </section>
