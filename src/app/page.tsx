@@ -1356,7 +1356,7 @@ export default function Home() {
             <Link href="/terms" className="hover:text-white/50 transition-colors">Terms</Link>
             <Link href="/privacy" className="hover:text-white/50 transition-colors">Privacy</Link>
             <Link href="https://x.com/wonezer" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Twitter</Link>
-            <Link href="https://github.com/wonecode/banana-predi" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">GitHub</Link>
+            <Link href="https://github.com/wonecode" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">GitHub</Link>
           </div>
         </div>
       </footer>
