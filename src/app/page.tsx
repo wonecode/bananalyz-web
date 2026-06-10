@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const INVITE_URL =
-  'https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands';
+  'https://discord.com/oauth2/authorize?client_id=1498348728078176377&permissions=139586750592&scope=bot+applications.commands';
 
 const features = [
   {
@@ -66,7 +66,9 @@ const TEAM_LOGOS: Record<string, string> = {
   'SK Gaming': '/logos/sk.png',
   'Giants': '/logos/gx.png',
   'NAVI': '/logos/navi.png',
-  'Shopify Rebellion': '/logos/shft.png',
+  'Shifters': '/logos/shft.png',
+  'KT Rolster': '/logos/kt-rolster-2026.webp',
+  'Dplus KIA': '/logos/dplus-orig.webp',
 };
 
 const LEAGUE_LOGOS: Record<string, string> = {
@@ -131,7 +133,7 @@ function DiscordMessage({
           className="w-9 h-9 rounded-full flex items-center justify-center text-lg shrink-0"
           style={{ background: 'linear-gradient(135deg, #1e2847 0%, #111827 100%)' }}
         >
-          🍌
+          <img alt='banana' src="android-chrome-192x192.png" className='w-5 h-5' />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <span className="font-semibold text-white text-sm">Bananalyz</span>
@@ -708,21 +710,12 @@ export default function Home() {
       >
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
-            <span className="text-2xl">🍌</span>
+            <img alt='banana' src="android-chrome-192x192.png" className='w-6 h-6' />
             <span className="text-white tracking-tight">Bananalyz</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm">
+          <nav className="md:flex items-center gap-8 text-sm">
             <Link href="/docs" className="transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>
               Docs
-            </Link>
-            <Link
-              href="https://discord.gg/bananalyz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors"
-              style={{ color: 'rgba(255,255,255,0.45)' }}
-            >
-              Community
             </Link>
             <Link
               href={INVITE_URL}
