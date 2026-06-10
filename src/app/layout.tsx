@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://bananalyz.com'),
+  metadataBase: new URL('https://bananalyz.junglesquad.fr'),
   title: {
     default: 'Bananalyz — LoL Esports Predictions for Discord',
     template: '%s | Bananalyz',
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://bananalyz.com',
+    url: 'https://bananalyz.junglesquad.fr',
     siteName: 'Bananalyz',
     title: 'Bananalyz — LoL Esports Predictions for Discord',
     description:
       'Predict League of Legends esports match outcomes on your Discord server. Earn points, climb leaderboards, and compete with your community.',
     images: [
       {
-        url: '/og.png',
+        url: 'og.png',
         width: 1200,
         height: 630,
         alt: 'Bananalyz — LoL Esports Predictions for Discord',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: 'Bananalyz — LoL Esports Predictions for Discord',
     description:
       'Predict LoL esports match outcomes on Discord. Earn points, climb leaderboards.',
-    images: ['/og.png'],
+    images: ['og.png'],
   },
   robots: {
     index: true,
