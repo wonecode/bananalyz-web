@@ -14,24 +14,17 @@ export default function Layout({ children }: { children: ReactNode }) {
         title: (
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <span className="text-lg">🍌</span>
-            <span className="text-white">Bananalyz</span>
-          </Link>
-        ),
-        children: (
-          <Link
-            href={INVITE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto px-3 py-1.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 hidden md:block"
-            style={{
-              background: '#5aa9ff',
-              color: '#0a0f1e',
-            }}
-          >
-            Add to Discord
+            <span>Bananalyz</span>
           </Link>
         ),
       }}
+      links={[
+        {
+          text: 'Add to Discord',
+          url: INVITE_URL,
+          external: true,
+        },
+      ]}
     >
       {children}
     </DocsLayout>
