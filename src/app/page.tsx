@@ -4,7 +4,6 @@ import {
   Zap,
   Trophy,
   BarChart3,
-  Shield,
   ChevronRight,
   Star,
   Clock,
@@ -61,25 +60,25 @@ const commands = [
 const TEAM_LOGOS: Record<string, string> = {
   'G2 Esports': '/logos/g2.webp',
   'Karmine Corp': '/logos/kc.webp',
-  'Fnatic': '/logos/fnc.png',
+  Fnatic: '/logos/fnc.png',
   'Team Vitality': '/logos/vit.png',
   'Team Heretics': '/logos/th.png',
   'Movistar KOI': '/logos/MKOI.webp',
   'SK Gaming': '/logos/sk.png',
-  'Giants': '/logos/gx.png',
-  'NAVI': '/logos/navi.png',
-  'Shifters': '/logos/shft.png',
+  Giants: '/logos/gx.png',
+  NAVI: '/logos/navi.png',
+  Shifters: '/logos/shft.png',
   'KT Rolster': '/logos/kt-rolster-2026.webp',
   'Dplus KIA': '/logos/dplus-orig.webp',
 };
 
 const LEAGUE_LOGOS: Record<string, string> = {
-  'LEC': '/logos/lec.webp',
-  'LCK': '/logos/lck.webp',
-  'LPL': '/logos/lpl.png',
-  'LFL': '/logos/lfl.webp',
-  'MSI': '/logos/msi.webp',
-  'Worlds': '/logos/worlds.png',
+  LEC: '/logos/lec.webp',
+  LCK: '/logos/lck.webp',
+  LPL: '/logos/lpl.png',
+  LFL: '/logos/lfl.webp',
+  MSI: '/logos/msi.webp',
+  Worlds: '/logos/worlds.png',
   'EMEA Masters': '/logos/emea_masters.webp',
   'First Stand': '/logos/first_stand.webp',
 };
@@ -93,7 +92,7 @@ function TeamLogo({ name, size = 20 }: { name: string; size?: number }) {
       alt={name}
       width={size}
       height={size}
-      className="object-contain shrink-0"
+      className="shrink-0 object-contain"
       style={{ width: size, height: size }}
     />
   );
@@ -108,7 +107,7 @@ function LeagueLogo({ name, size = 16 }: { name: string; size?: number }) {
       alt={name}
       width={size}
       height={size}
-      className="object-contain shrink-0"
+      className="shrink-0 object-contain"
       style={{ width: size, height: size }}
     />
   );
@@ -137,16 +136,10 @@ function TopGgIcon({ size = 14 }: { size?: number }) {
 }
 
 // ─────────────────────────────────────────
-function DiscordMessage({
-  time,
-  children,
-}: {
-  time: string;
-  children: React.ReactNode;
-}) {
+function DiscordMessage({ time, children }: { time: string; children: React.ReactNode }) {
   return (
     <div
-      className="w-full rounded-2xl overflow-hidden select-none"
+      className="w-full overflow-hidden rounded-2xl select-none"
       style={{
         background: '#313338',
         boxShadow: '0 16px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
@@ -154,15 +147,15 @@ function DiscordMessage({
     >
       <div className="flex items-center gap-3 px-4 pt-4 pb-2">
         <div
-          className="w-9 h-9 rounded-full flex items-center justify-center text-lg shrink-0"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-lg"
           style={{ background: 'linear-gradient(135deg, #1e2847 0%, #111827 100%)' }}
         >
-          <img alt='banana' src="android-chrome-192x192.png" className='w-5 h-5' />
+          <img alt="banana" src="android-chrome-192x192.png" className="h-5 w-5" />
         </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-semibold text-white text-sm">Bananalyz</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-semibold text-white">Bananalyz</span>
           <span
-            className="text-[10px] px-1.5 py-0.5 rounded font-bold tracking-wide"
+            className="rounded px-1.5 py-0.5 text-[10px] font-bold tracking-wide"
             style={{ background: '#5865f2', color: 'white' }}
           >
             APP
@@ -181,16 +174,19 @@ function MatchEmbed() {
   return (
     <DiscordMessage time="Today at 14:08">
       <div
-        className="mx-4 rounded-lg overflow-hidden"
+        className="mx-4 overflow-hidden rounded-lg"
         style={{
           background: '#2b2d31',
           borderLeft: '4px solid #4f96ff',
         }}
       >
-        <div className="px-4 pt-3 pb-2 flex items-center gap-2">
+        <div className="flex items-center gap-2 px-4 pt-3 pb-2">
           <div
-            className="flex items-center gap-1.5 px-2 py-0.5 rounded-full"
-            style={{ background: 'rgba(79,150,255,0.12)', border: '1px solid rgba(79,150,255,0.25)' }}
+            className="flex items-center gap-1.5 rounded-full px-2 py-0.5"
+            style={{
+              background: 'rgba(79,150,255,0.12)',
+              border: '1px solid rgba(79,150,255,0.25)',
+            }}
           >
             <LeagueLogo name="LEC" size={12} />
             <span className="text-[11px] font-bold tracking-wide" style={{ color: '#4f96ff' }}>
@@ -198,7 +194,7 @@ function MatchEmbed() {
             </span>
           </div>
           <span
-            className="text-[10px] px-1.5 py-0.5 rounded"
+            className="rounded px-1.5 py-0.5 text-[10px]"
             style={{ background: '#383a40', color: '#80848e' }}
           >
             BO5 · Play-offs
@@ -206,40 +202,44 @@ function MatchEmbed() {
         </div>
 
         <div className="px-4 pb-3">
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
+                className="flex h-9 w-9 items-center justify-center rounded-xl"
                 style={{ background: 'rgba(255,255,255,0.05)' }}
               >
                 <TeamLogo name="G2 Esports" size={22} />
               </div>
               <div>
-                <p className="text-white font-bold text-sm leading-none">G2 Esports</p>
-                <p className="text-[11px] mt-0.5" style={{ color: '#80848e' }}>63% predicted</p>
+                <p className="text-sm leading-none font-bold text-white">G2 Esports</p>
+                <p className="mt-0.5 text-[11px]" style={{ color: '#80848e' }}>
+                  63% predicted
+                </p>
               </div>
             </div>
             <div
-              className="px-3 py-1 rounded-lg text-xs font-black"
+              className="rounded-lg px-3 py-1 text-xs font-black"
               style={{ background: '#383a40', color: '#80848e', letterSpacing: '0.05em' }}
             >
               VS
             </div>
-            <div className="flex items-center gap-2 flex-row-reverse">
+            <div className="flex flex-row-reverse items-center gap-2">
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
+                className="flex h-9 w-9 items-center justify-center rounded-xl"
                 style={{ background: 'rgba(255,255,255,0.05)' }}
               >
                 <TeamLogo name="Karmine Corp" size={22} />
               </div>
               <div className="text-right">
-                <p className="text-white font-bold text-sm leading-none">Karmine Corp</p>
-                <p className="text-[11px] mt-0.5" style={{ color: '#80848e' }}>37% predicted</p>
+                <p className="text-sm leading-none font-bold text-white">Karmine Corp</p>
+                <p className="mt-0.5 text-[11px]" style={{ color: '#80848e' }}>
+                  37% predicted
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#383a40' }}>
+          <div className="h-1.5 overflow-hidden rounded-full" style={{ background: '#383a40' }}>
             <div
               className="h-full rounded-full"
               style={{
@@ -248,22 +248,26 @@ function MatchEmbed() {
               }}
             />
           </div>
-          <div className="flex justify-between mt-1">
-            <span className="text-[10px] font-semibold" style={{ color: '#4f96ff' }}>9 picks</span>
-            <span className="text-[10px] font-semibold" style={{ color: '#80848e' }}>5 picks</span>
+          <div className="mt-1 flex justify-between">
+            <span className="text-[10px] font-semibold" style={{ color: '#4f96ff' }}>
+              9 picks
+            </span>
+            <span className="text-[10px] font-semibold" style={{ color: '#80848e' }}>
+              5 picks
+            </span>
           </div>
         </div>
 
-        <div className="px-4 pb-3 flex items-center gap-4 text-xs">
+        <div className="flex items-center gap-4 px-4 pb-3 text-xs">
           <div
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg"
+            className="flex items-center gap-1.5 rounded-lg px-2 py-1"
             style={{ background: '#383a40' }}
           >
             <Clock size={10} style={{ color: '#80848e' }} />
             <span className="text-white">in 2 hours</span>
           </div>
           <div
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg"
+            className="flex items-center gap-1.5 rounded-lg px-2 py-1"
             style={{ background: '#383a40' }}
           >
             <Users size={10} style={{ color: '#80848e' }} />
@@ -272,7 +276,9 @@ function MatchEmbed() {
         </div>
 
         <div className="px-4 pb-3">
-          <p className="text-[11px] mb-1" style={{ color: '#80848e' }}>Predictors in this server</p>
+          <p className="mb-1 text-[11px]" style={{ color: '#80848e' }}>
+            Predictors in this server
+          </p>
           <p className="text-xs" style={{ color: '#4f96ff' }}>
             @Bonobo Éolien, @Macaque Gambler, @Singe Agressif, @Bonobo soyeux
           </p>
@@ -285,8 +291,13 @@ function MatchEmbed() {
         </div>
       </div>
 
-      <div className="px-4 py-3 space-y-2">
-        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#4e5058' }}>Pick your winner &amp; score</p>
+      <div className="space-y-2 px-4 py-3">
+        <p
+          className="mb-2 text-[11px] font-semibold tracking-widest uppercase"
+          style={{ color: '#4e5058' }}
+        >
+          Pick your winner &amp; score
+        </p>
         <div className="grid grid-cols-3 gap-2">
           {[
             { label: 'G2 3-0', team: 'G2 Esports' },
@@ -295,7 +306,7 @@ function MatchEmbed() {
           ].map((s) => (
             <button
               key={s.label}
-              className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-white transition-all"
+              className="flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-xs font-semibold text-white transition-all"
               style={{
                 background: 'rgba(79,150,255,0.12)',
                 border: '1px solid rgba(79,150,255,0.3)',
@@ -313,7 +324,7 @@ function MatchEmbed() {
           ].map((s) => (
             <button
               key={s.label}
-              className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-white"
+              className="flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-xs font-semibold text-white"
               style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
@@ -368,68 +379,87 @@ function PredictionsEmbed() {
   return (
     <DiscordMessage time="Today at 14:51">
       <div
-        className="mx-4 mb-4 rounded-lg overflow-hidden"
+        className="mx-4 mb-4 overflow-hidden rounded-lg"
         style={{ background: '#2b2d31', borderLeft: '4px solid #fbbf24' }}
       >
-        <div className="px-4 pt-3 pb-2 flex items-center gap-2">
+        <div className="flex items-center gap-2 px-4 pt-3 pb-2">
           <p className="text-sm font-bold text-white">🍌 My predictions</p>
           <span
-            className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
-            style={{ background: 'rgba(251,191,36,0.15)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)' }}
+            className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+            style={{
+              background: 'rgba(251,191,36,0.15)',
+              color: '#fbbf24',
+              border: '1px solid rgba(251,191,36,0.3)',
+            }}
           >
             Bonobo Éolien
           </span>
         </div>
 
         <div
-          className="mx-4 mb-3 p-3 rounded-xl grid grid-cols-4 gap-2"
-          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+          className="mx-4 mb-3 grid grid-cols-4 gap-2 rounded-xl p-3"
+          style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.06)',
+          }}
         >
           <div className="text-center">
             <p className="text-lg font-black text-white">177</p>
-            <p className="text-[10px]" style={{ color: '#80848e' }}>🍌 pts</p>
+            <p className="text-[10px]" style={{ color: '#80848e' }}>
+              🍌 pts
+            </p>
           </div>
           <div className="text-center">
-            <p className="text-lg font-black" style={{ color: '#4ade80' }}>84%</p>
-            <p className="text-[10px]" style={{ color: '#80848e' }}>Win rate</p>
+            <p className="text-lg font-black" style={{ color: '#4ade80' }}>
+              84%
+            </p>
+            <p className="text-[10px]" style={{ color: '#80848e' }}>
+              Win rate
+            </p>
           </div>
           <div className="text-center">
             <p className="text-lg font-black text-white">49W</p>
-            <p className="text-[10px]" style={{ color: '#80848e' }}>Wins</p>
+            <p className="text-[10px]" style={{ color: '#80848e' }}>
+              Wins
+            </p>
           </div>
           <div className="text-center">
-            <p className="text-lg font-black" style={{ color: '#fbbf24' }}>15✨</p>
-            <p className="text-[10px]" style={{ color: '#80848e' }}>Perfects</p>
+            <p className="text-lg font-black" style={{ color: '#fbbf24' }}>
+              15✨
+            </p>
+            <p className="text-[10px]" style={{ color: '#80848e' }}>
+              Perfects
+            </p>
           </div>
         </div>
 
         <div className="px-4 pb-3">
-          <p className="text-xs font-semibold text-white mb-2 flex items-center gap-1.5">
+          <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-white">
             <span style={{ color: '#80848e' }}>📋</span> Recent results
           </p>
           <div className="space-y-2">
             {recentResults.map((r, i) => (
               <div
                 key={i}
-                className="p-2.5 rounded-lg"
+                className="rounded-lg p-2.5"
                 style={{
                   background: r.won ? 'rgba(74,222,128,0.05)' : 'rgba(248,113,113,0.05)',
                   border: `1px solid ${r.won ? 'rgba(74,222,128,0.15)' : 'rgba(248,113,113,0.12)'}`,
                 }}
               >
-                <div className="flex items-center justify-between mb-1">
+                <div className="mb-1 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-xs">
                     <LeagueLogo name={r.league} size={11} />
-                    <span className="flex items-center gap-1 text-white font-medium">
+                    <span className="flex items-center gap-1 font-medium text-white">
                       <TeamLogo name={r.team1} size={11} /> {r.team1}
                     </span>
                     <span style={{ color: '#4e5058' }}>vs</span>
-                    <span className="flex items-center gap-1 text-white font-medium">
+                    <span className="flex items-center gap-1 font-medium text-white">
                       <TeamLogo name={r.team2} size={11} /> {r.team2}
                     </span>
                   </div>
                   <span
-                    className="text-xs font-bold px-1.5 py-0.5 rounded"
+                    className="rounded px-1.5 py-0.5 text-xs font-bold"
                     style={{
                       background: r.won ? 'rgba(74,222,128,0.15)' : 'rgba(248,113,113,0.15)',
                       color: r.won ? '#4ade80' : '#f87171',
@@ -440,10 +470,9 @@ function PredictionsEmbed() {
                 </div>
                 <div className="flex items-center gap-3 text-[11px]" style={{ color: '#80848e' }}>
                   <span>
-                    Result:{' '}
-                    <span className="text-white font-medium">{r.result}</span>{' '}
+                    Result: <span className="font-medium text-white">{r.result}</span>{' '}
                     <span
-                      className="px-1 py-0.5 rounded text-[10px]"
+                      className="rounded px-1 py-0.5 text-[10px]"
                       style={{ background: '#383a40', color: '#d1d5db' }}
                     >
                       {r.resultScore}
@@ -451,10 +480,9 @@ function PredictionsEmbed() {
                   </span>
                   <span style={{ color: '#383a40' }}>·</span>
                   <span>
-                    Pick:{' '}
-                    <span className="text-white font-medium">{r.pick}</span>{' '}
+                    Pick: <span className="font-medium text-white">{r.pick}</span>{' '}
                     <span
-                      className="px-1 py-0.5 rounded text-[10px]"
+                      className="rounded px-1 py-0.5 text-[10px]"
                       style={{ background: '#383a40', color: '#d1d5db' }}
                     >
                       {r.pickScore}
@@ -467,7 +495,7 @@ function PredictionsEmbed() {
         </div>
 
         <div className="px-4 pb-4">
-          <p className="text-xs font-semibold text-white mb-2 flex items-center gap-1.5">
+          <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-white">
             <span style={{ color: '#80848e' }}>⏳</span> Upcoming predictions
           </p>
           <div className="space-y-2">
@@ -489,10 +517,13 @@ function PredictionsEmbed() {
             ].map((u, i) => (
               <div
                 key={i}
-                className="p-2.5 rounded-lg"
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                className="rounded-lg p-2.5"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                }}
               >
-                <div className="flex items-center gap-1.5 text-xs text-white font-medium mb-1">
+                <div className="mb-1 flex items-center gap-1.5 text-xs font-medium text-white">
                   <LeagueLogo name={u.league} size={11} />
                   <span>{u.match}</span>
                 </div>
@@ -503,14 +534,14 @@ function PredictionsEmbed() {
                   <span>
                     Score:{' '}
                     <span
-                      className="px-1.5 py-0.5 rounded text-[10px] text-white"
+                      className="rounded px-1.5 py-0.5 text-[10px] text-white"
                       style={{ background: '#383a40' }}
                     >
                       {u.score}
                     </span>
                   </span>
                   <span
-                    className="ml-auto px-1.5 py-0.5 rounded text-[10px]"
+                    className="ml-auto rounded px-1.5 py-0.5 text-[10px]"
                     style={{ background: 'rgba(251,191,36,0.1)', color: '#fbbf24' }}
                   >
                     {u.starts}
@@ -519,7 +550,7 @@ function PredictionsEmbed() {
               </div>
             ))}
           </div>
-          <p className="text-[11px] mt-3" style={{ color: '#4e5058' }}>
+          <p className="mt-3 text-[11px]" style={{ color: '#4e5058' }}>
             You can update your predictions until each match starts.
           </p>
         </div>
@@ -549,18 +580,22 @@ function LeaderboardEmbed() {
   return (
     <DiscordMessage time="Today at 15:24">
       <div
-        className="mx-4 mb-4 rounded-lg overflow-hidden"
+        className="mx-4 mb-4 overflow-hidden rounded-lg"
         style={{ background: '#2b2d31', borderLeft: '4px solid #4f96ff' }}
       >
-        <div className="px-4 pt-3 pb-3 flex items-start justify-between">
+        <div className="flex items-start justify-between px-4 pt-3 pb-3">
           <div>
             <p className="text-sm font-bold text-white">🍌 Server leaderboard</p>
-            <p className="text-xs mt-0.5" style={{ color: '#80848e' }}>Jungle Squad · Page 1/3</p>
+            <p className="mt-0.5 text-xs" style={{ color: '#80848e' }}>
+              Jungle Squad · Page 1/3
+            </p>
           </div>
           <div className="text-right">
-            <p className="text-[10px]" style={{ color: '#80848e' }}>Last scored match</p>
+            <p className="text-[10px]" style={{ color: '#80848e' }}>
+              Last scored match
+            </p>
             <span
-              className="text-[11px] px-2 py-0.5 rounded text-white inline-block mt-0.5"
+              className="mt-0.5 inline-block rounded px-2 py-0.5 text-[11px] text-white"
               style={{ background: '#383a40' }}
             >
               <span className="flex items-center gap-1">
@@ -573,32 +608,32 @@ function LeaderboardEmbed() {
           </div>
         </div>
 
-        <div className="px-4 pb-1 space-y-1">
+        <div className="space-y-1 px-4 pb-1">
           {players.map((p) => {
             const rs = rankStyle[p.rank];
             return (
               <div
                 key={p.rank}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs"
+                className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs"
                 style={{
                   background: rs ? rs.bg : p.rank === 5 ? 'rgba(79,150,255,0.08)' : 'transparent',
                   border: p.rank === 5 ? '1px solid rgba(79,150,255,0.2)' : '1px solid transparent',
                 }}
               >
                 <span
-                  className="w-5 text-center font-bold shrink-0 text-[11px]"
+                  className="w-5 shrink-0 text-center text-[11px] font-bold"
                   style={{ color: rs ? rs.color : '#4e5058' }}
                 >
                   {rs ? rs.label : p.rank}
                 </span>
                 <span
-                  className="font-medium flex-1 truncate text-[12px]"
+                  className="flex-1 truncate text-[12px] font-medium"
                   style={{ color: p.rank === 5 ? '#93c5fd' : '#d1d5db' }}
                 >
                   @{p.name}
                   {p.rank === 5 && (
                     <span
-                      className="ml-1.5 text-[9px] px-1 py-0.5 rounded uppercase tracking-wider"
+                      className="ml-1.5 rounded px-1 py-0.5 text-[9px] tracking-wider uppercase"
                       style={{ background: 'rgba(79,150,255,0.2)', color: '#4f96ff' }}
                     >
                       you
@@ -628,15 +663,15 @@ function LeaderboardEmbed() {
         </div>
       </div>
 
-      <div className="px-4 pb-4 flex gap-2">
+      <div className="flex gap-2 px-4 pb-4">
         <button
-          className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
+          className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
           style={{ background: '#4e5058', border: '1px solid rgba(255,255,255,0.06)' }}
         >
           ← Previous
         </button>
         <button
-          className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
+          className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
           style={{ background: '#5865f2', border: '1px solid rgba(88,101,242,0.5)' }}
         >
           Next →
@@ -671,8 +706,7 @@ function Ticker({
     <div
       className="relative overflow-hidden py-1"
       style={{
-        maskImage:
-          'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+        maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
       }}
     >
       <div
@@ -684,16 +718,22 @@ function Ticker({
         {doubled.map((l, i) => (
           <div
             key={i}
-            className="flex items-center gap-2.5 shrink-0"
+            className="flex shrink-0 items-center gap-2.5"
             style={{ opacity: l.active ? 1 : 0.25 }}
           >
             <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)' }}
+              className="flex h-8 w-8 items-center justify-center rounded-xl"
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.07)',
+              }}
             >
               <Image src={l.src} alt={l.name} width={20} height={20} className="object-contain" />
             </div>
-            <span className="text-sm font-medium" style={{ color: l.active ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.2)' }}>
+            <span
+              className="text-sm font-medium"
+              style={{ color: l.active ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.2)' }}
+            >
               {l.name}
             </span>
           </div>
@@ -703,10 +743,20 @@ function Ticker({
   );
 }
 
-function StatCard({ value, label, sublabel, color = '#5aa9ff' }: { value: string; label: string; sublabel?: string; color?: string }) {
+function StatCard({
+  value,
+  label,
+  sublabel,
+  color = '#5aa9ff',
+}: {
+  value: string;
+  label: string;
+  sublabel?: string;
+  color?: string;
+}) {
   return (
     <div
-      className="p-6 rounded-2xl flex flex-col gap-1"
+      className="flex flex-col gap-1 rounded-2xl p-6"
       style={{
         background: 'rgba(255,255,255,0.02)',
         border: '1px solid rgba(255,255,255,0.07)',
@@ -716,7 +766,11 @@ function StatCard({ value, label, sublabel, color = '#5aa9ff' }: { value: string
         {value}
       </span>
       <span className="text-sm font-semibold text-white">{label}</span>
-      {sublabel && <span className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>{sublabel}</span>}
+      {sublabel && (
+        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          {sublabel}
+        </span>
+      )}
     </div>
   );
 }
@@ -726,26 +780,30 @@ export default function Home() {
     <div className="min-h-screen text-white" style={{ background: '#0a0f1e' }}>
       {/* ── Nav ── */}
       <header
-        className="fixed top-0 inset-x-0 z-50 backdrop-blur-md"
+        className="fixed inset-x-0 top-0 z-50 backdrop-blur-md"
         style={{
           borderBottom: '1px solid rgba(90,169,255,0.1)',
           background: 'rgba(10,15,30,0.85)',
         }}
       >
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
-            <img alt='banana' src="android-chrome-192x192.png" className='w-6 h-6' />
-            <span className="text-white tracking-tight">Bananalyz</span>
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-2.5 text-lg font-bold">
+            <img alt="banana" src="android-chrome-192x192.png" className="h-6 w-6" />
+            <span className="tracking-tight text-white">Bananalyz</span>
           </Link>
-          <nav className="md:flex items-center gap-8 text-sm">
-            <Link href="/docs" className="transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <nav className="items-center gap-8 text-sm md:flex">
+            <Link
+              href="/docs"
+              className="transition-colors"
+              style={{ color: 'rgba(255,255,255,0.45)' }}
+            >
               Docs
             </Link>
             <Link
               href={TOPGG_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 transition-colors font-medium"
+              className="flex items-center gap-1.5 font-medium transition-colors"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
               <TopGgIcon size={16} />
@@ -755,7 +813,7 @@ export default function Home() {
               href={INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg font-semibold transition-all hover:brightness-110"
+              className="rounded-lg px-4 py-2 font-semibold transition-all hover:brightness-110"
               style={{ background: '#5aa9ff', color: '#0a0f1e' }}
             >
               Add to Discord
@@ -765,7 +823,7 @@ export default function Home() {
             href={INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="md:hidden px-3 py-1.5 rounded-lg text-sm font-semibold"
+            className="rounded-lg px-3 py-1.5 text-sm font-semibold md:hidden"
             style={{ background: '#5aa9ff', color: '#0a0f1e' }}
           >
             Add bot
@@ -775,20 +833,20 @@ export default function Home() {
 
       <main>
         {/* ── Hero (simplified) ── */}
-        <section className="pt-40 pb-16 px-6 relative overflow-hidden">
+        <section className="relative overflow-hidden px-6 pt-40 pb-16">
           {/* Glow */}
-          <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
             <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full blur-[120px]"
+              className="absolute top-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[120px]"
               style={{ background: 'rgba(47,107,255,0.12)' }}
             />
           </div>
 
           <div className="relative mx-auto max-w-4xl text-center">
             {/* Badge */}
-            <div className="flex justify-center mb-8">
+            <div className="mb-8 flex justify-center">
               <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
                 style={{
                   background: 'rgba(90,169,255,0.08)',
                   border: '1px solid rgba(90,169,255,0.2)',
@@ -801,7 +859,7 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05] mb-5">
+            <h1 className="mb-5 text-5xl leading-[1.05] font-black tracking-tight sm:text-6xl md:text-7xl">
               <span style={{ color: 'rgba(255,255,255,0.95)' }}>Predict. </span>
               <span
                 style={{
@@ -818,19 +876,20 @@ export default function Home() {
 
             {/* Subline */}
             <p
-              className="text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-8"
+              className="mx-auto mb-8 max-w-xl text-lg leading-relaxed md:text-xl"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
-              Bring League of Legends esports predictions into your Discord server. Pick winners, score points, climb the leaderboard.
+              Bring League of Legends esports predictions into your Discord server. Pick winners,
+              score points, climb the leaderboard.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+            <div className="mb-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href={INVITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-base transition-all hover:brightness-110"
+                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-bold transition-all hover:brightness-110"
                 style={{ background: '#5aa9ff', color: '#0a0f1e' }}
               >
                 Add to Discord <ChevronRight size={16} />
@@ -839,7 +898,7 @@ export default function Home() {
                 href={TOPGG_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-base transition-all hover:brightness-110"
+                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold transition-all hover:brightness-110"
                 style={{
                   background: 'rgba(255,196,0,0.1)',
                   border: '1px solid rgba(255,196,0,0.3)',
@@ -851,8 +910,11 @@ export default function Home() {
               </Link>
               <Link
                 href="/docs"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-medium text-base"
-                style={{ border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.55)' }}
+                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-medium"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.55)',
+                }}
               >
                 Read the docs
               </Link>
@@ -860,12 +922,15 @@ export default function Home() {
 
             {/* Social proof */}
             <div
-              className="flex items-center justify-center gap-6 mb-16 text-sm"
+              className="mb-16 flex items-center justify-center gap-6 text-sm"
               style={{ color: 'rgba(255,255,255,0.25)' }}
             >
-              <div className="flex items-center gap-1.5"><Zap size={12} /> Free to use</div>
-              <span>·</span>
-              <div className="flex items-center gap-1.5"><Clock size={12} /> Setup in 1 minute</div>
+              <div className="flex items-center gap-1.5">
+                <Zap size={12} /> Free to use
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock size={12} /> Setup in 1 minute
+              </div>
             </div>
 
             {/* Single hero embed */}
@@ -882,13 +947,10 @@ export default function Home() {
         </section>
 
         {/* ── Tickers ── */}
-        <section
-          className="py-10 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
             <p
-              className="text-[11px] font-bold uppercase tracking-widest text-center mb-5"
+              className="mb-5 text-center text-[11px] font-bold tracking-widest uppercase"
               style={{ color: 'rgba(255,255,255,0.2)' }}
             >
               Supported leagues
@@ -898,22 +960,26 @@ export default function Home() {
         </section>
 
         {/* ── How it works ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#5aa9ff' }}>
+            <div className="mb-16 text-center">
+              <p
+                className="mb-3 text-xs font-bold tracking-widest uppercase"
+                style={{ color: '#5aa9ff' }}
+              >
                 Setup
               </p>
-              <h2 className="text-4xl font-black tracking-tight mb-3">How it works</h2>
-              <p style={{ color: 'rgba(255,255,255,0.4)' }}>Three steps and your server is predicting.</p>
+              <h2 className="mb-3 text-4xl font-black tracking-tight">How it works</h2>
+              <p style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Three steps and your server is predicting.
+              </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6 relative">
+            <div className="relative grid gap-6 md:grid-cols-3">
               <div
-                className="hidden md:block absolute top-10 left-1/3 right-1/3 h-px"
-                style={{ background: 'linear-gradient(90deg, rgba(90,169,255,0.3), rgba(90,169,255,0.1))' }}
+                className="absolute top-10 right-1/3 left-1/3 hidden h-px md:block"
+                style={{
+                  background: 'linear-gradient(90deg, rgba(90,169,255,0.3), rgba(90,169,255,0.1))',
+                }}
               />
               {[
                 {
@@ -937,19 +1003,23 @@ export default function Home() {
               ].map((item) => (
                 <div
                   key={item.step}
-                  className="relative p-6 rounded-2xl"
+                  className="relative rounded-2xl p-6"
                   style={{
                     background: 'rgba(255,255,255,0.02)',
                     border: '1px solid rgba(255,255,255,0.07)',
                   }}
                 >
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm mb-4"
-                    style={{ background: `${item.color}18`, color: item.color, border: `1px solid ${item.color}30` }}
+                    className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-sm font-black"
+                    style={{
+                      background: `${item.color}18`,
+                      color: item.color,
+                      border: `1px solid ${item.color}30`,
+                    }}
                   >
                     {item.step}
                   </div>
-                  <h3 className="font-bold text-white mb-2">{item.title}</h3>
+                  <h3 className="mb-2 font-bold text-white">{item.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     {item.desc}
                   </p>
@@ -960,13 +1030,10 @@ export default function Home() {
         </section>
 
         {/* ── /predictions showcase ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
-            <div className="grid md:grid-cols-2 gap-20 items-center">
-              <div className="flex justify-center md:justify-start order-2 md:order-1">
+            <div className="grid items-center gap-20 md:grid-cols-2">
+              <div className="order-2 flex justify-center md:order-1 md:justify-start">
                 <div className="relative w-full max-w-[460px]">
                   <div
                     className="absolute -inset-6 rounded-3xl blur-3xl"
@@ -979,7 +1046,7 @@ export default function Home() {
               </div>
               <div className="order-1 md:order-2">
                 <div
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 tracking-wide"
+                  className="mb-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wide"
                   style={{
                     background: 'rgba(251,191,36,0.1)',
                     border: '1px solid rgba(251,191,36,0.2)',
@@ -988,7 +1055,7 @@ export default function Home() {
                 >
                   <BarChart3 size={11} /> /predictions
                 </div>
-                <h2 className="text-4xl font-black tracking-tight mb-4">
+                <h2 className="mb-4 text-4xl font-black tracking-tight">
                   Your full history,
                   <br />
                   <span style={{ color: '#fbbf24' }}>at a glance</span>
@@ -1006,8 +1073,11 @@ export default function Home() {
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-sm">
                       <span
-                        className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.2)' }}
+                        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
+                        style={{
+                          background: 'rgba(74,222,128,0.12)',
+                          border: '1px solid rgba(74,222,128,0.2)',
+                        }}
                       >
                         <Check size={11} style={{ color: '#4ade80' }} />
                       </span>
@@ -1021,15 +1091,12 @@ export default function Home() {
         </section>
 
         {/* ── Leaderboard showcase ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
-            <div className="grid md:grid-cols-2 gap-20 items-center">
+            <div className="grid items-center gap-20 md:grid-cols-2">
               <div>
                 <div
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-5 tracking-wide"
+                  className="mb-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wide"
                   style={{
                     background: 'rgba(90,169,255,0.1)',
                     border: '1px solid rgba(90,169,255,0.2)',
@@ -1038,19 +1105,20 @@ export default function Home() {
                 >
                   <Trophy size={11} /> /leaderboard
                 </div>
-                <h2 className="text-4xl font-black tracking-tight mb-4">
+                <h2 className="mb-4 text-4xl font-black tracking-tight">
                   Two leaderboards,
                   <br />
                   <span style={{ color: '#5aa9ff' }}>one command</span>
                 </h2>
                 <p className="mb-7 leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  Compete within your server or go head-to-head against predictors from every community. Both leaderboards update automatically after each scored match.
+                  Compete within your server or go head-to-head against predictors from every
+                  community. Both leaderboards update automatically after each scored match.
                 </p>
 
                 {/* Server vs Global pills */}
-                <div className="flex gap-3 mb-7">
+                <div className="mb-7 flex gap-3">
                   <div
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+                    className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
                     style={{
                       background: 'rgba(90,169,255,0.08)',
                       border: '1px solid rgba(90,169,255,0.2)',
@@ -1061,7 +1129,7 @@ export default function Home() {
                     Server leaderboard
                   </div>
                   <div
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+                    className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
                     style={{
                       background: 'rgba(196,132,252,0.08)',
                       border: '1px solid rgba(196,132,252,0.2)',
@@ -1083,8 +1151,11 @@ export default function Home() {
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-sm">
                       <span
-                        className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.2)' }}
+                        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
+                        style={{
+                          background: 'rgba(74,222,128,0.12)',
+                          border: '1px solid rgba(74,222,128,0.2)',
+                        }}
                       >
                         <Check size={11} style={{ color: '#4ade80' }} />
                       </span>
@@ -1109,33 +1180,37 @@ export default function Home() {
         </section>
 
         {/* ── Features grid ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#5aa9ff' }}>Features</p>
-              <h2 className="text-4xl font-black tracking-tight mb-3">Everything you need</h2>
-              <p style={{ color: 'rgba(255,255,255,0.4)' }}>A fully automated prediction system that runs in the background.</p>
+            <div className="mb-16 text-center">
+              <p
+                className="mb-3 text-xs font-bold tracking-widest uppercase"
+                style={{ color: '#5aa9ff' }}
+              >
+                Features
+              </p>
+              <h2 className="mb-3 text-4xl font-black tracking-tight">Everything you need</h2>
+              <p style={{ color: 'rgba(255,255,255,0.4)' }}>
+                A fully automated prediction system that runs in the background.
+              </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {features.map((f) => (
                 <div
                   key={f.title}
-                  className="p-6 rounded-2xl group"
+                  className="group rounded-2xl p-6"
                   style={{
                     background: 'rgba(255,255,255,0.02)',
                     border: '1px solid rgba(255,255,255,0.07)',
                   }}
                 >
                   <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+                    className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl"
                     style={{ background: `${f.color}12`, border: `1px solid ${f.color}20` }}
                   >
                     <f.icon size={20} style={{ color: f.color }} />
                   </div>
-                  <h3 className="font-bold mb-2 text-white">{f.title}</h3>
+                  <h3 className="mb-2 font-bold text-white">{f.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     {f.description}
                   </p>
@@ -1146,15 +1221,17 @@ export default function Home() {
         </section>
 
         {/* ── Commands ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-6xl">
-            <div className="grid md:grid-cols-2 gap-20 items-center">
+            <div className="grid items-center gap-20 md:grid-cols-2">
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#5aa9ff' }}>Commands</p>
-                <h2 className="text-4xl font-black tracking-tight mb-4">
+                <p
+                  className="mb-4 text-xs font-bold tracking-widest uppercase"
+                  style={{ color: '#5aa9ff' }}
+                >
+                  Commands
+                </p>
+                <h2 className="mb-4 text-4xl font-black tracking-tight">
                   Simple commands,
                   <br />
                   powerful results
@@ -1175,14 +1252,14 @@ export default function Home() {
                 {commands.map((cmd) => (
                   <div
                     key={cmd.name}
-                    className="flex items-center gap-4 p-4 rounded-2xl"
+                    className="flex items-center gap-4 rounded-2xl p-4"
                     style={{
                       background: 'rgba(255,255,255,0.02)',
                       border: '1px solid rgba(255,255,255,0.07)',
                     }}
                   >
                     <code
-                      className="font-mono text-sm font-bold shrink-0 px-2 py-1 rounded-lg"
+                      className="shrink-0 rounded-lg px-2 py-1 font-mono text-sm font-bold"
                       style={{ background: `${cmd.color}12`, color: cmd.color }}
                     >
                       {cmd.name}
@@ -1198,112 +1275,161 @@ export default function Home() {
         </section>
 
         {/* ── Scoring ── */}
-        <section
-          className="py-28 px-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-4xl">
             {/* Header */}
-            <div className="text-center mb-14">
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#5aa9ff' }}>Scoring</p>
-              <h2 className="text-4xl font-black tracking-tight mb-3">How scoring works</h2>
+            <div className="mb-14 text-center">
+              <p
+                className="mb-3 text-xs font-bold tracking-widest uppercase"
+                style={{ color: '#5aa9ff' }}
+              >
+                Scoring
+              </p>
+              <h2 className="mb-3 text-4xl font-black tracking-tight">How scoring works</h2>
               <p style={{ color: 'rgba(255,255,255,0.4)' }}>
                 Every correct prediction earns bananas 🍌 — nail the exact score for a bonus.
               </p>
             </div>
 
             {/* Cards — always 3 columns side by side */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
-
+            <div className="mb-6 grid grid-cols-3 gap-4">
               {/* Correct winner */}
               <div
-                className="p-6 rounded-2xl flex flex-col gap-3"
+                className="flex flex-col gap-3 rounded-2xl p-6"
                 style={{
                   background: 'rgba(90,169,255,0.04)',
                   border: '1px solid rgba(90,169,255,0.12)',
                 }}
               >
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
-                  style={{ background: 'rgba(90,169,255,0.1)', border: '1px solid rgba(90,169,255,0.2)' }}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl text-lg"
+                  style={{
+                    background: 'rgba(90,169,255,0.1)',
+                    border: '1px solid rgba(90,169,255,0.2)',
+                  }}
                 >
                   🎯
                 </div>
                 <div>
-                  <div className="text-4xl font-black tracking-tight mb-1" style={{ color: '#5aa9ff' }}>+3</div>
-                  <div className="text-sm font-bold text-white mb-1">Correct winner</div>
-                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <div
+                    className="mb-1 text-4xl font-black tracking-tight"
+                    style={{ color: '#5aa9ff' }}
+                  >
+                    +3
+                  </div>
+                  <div className="mb-1 text-sm font-bold text-white">Correct winner</div>
+                  <div
+                    className="text-xs leading-relaxed"
+                    style={{ color: 'rgba(255,255,255,0.35)' }}
+                  >
                     You picked the right team — regardless of the final score.
                   </div>
                 </div>
                 {/* mini progress bar */}
                 <div className="mt-auto pt-2">
-                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                  <div
+                    className="mb-1 flex justify-between text-[10px]"
+                    style={{ color: 'rgba(255,255,255,0.25)' }}
+                  >
                     <span>base reward</span>
                     <span>3 / 5</span>
                   </div>
-                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                    <div className="h-full rounded-full" style={{ width: '60%', background: '#5aa9ff' }} />
+                  <div
+                    className="h-1 overflow-hidden rounded-full"
+                    style={{ background: 'rgba(255,255,255,0.06)' }}
+                  >
+                    <div
+                      className="h-full rounded-full"
+                      style={{ width: '60%', background: '#5aa9ff' }}
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Exact score */}
               <div
-                className="p-6 rounded-2xl flex flex-col gap-3"
+                className="flex flex-col gap-3 rounded-2xl p-6"
                 style={{
                   background: 'rgba(90,169,255,0.04)',
                   border: '1px solid rgba(90,169,255,0.12)',
                 }}
               >
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
-                  style={{ background: 'rgba(90,169,255,0.1)', border: '1px solid rgba(90,169,255,0.2)' }}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl text-lg"
+                  style={{
+                    background: 'rgba(90,169,255,0.1)',
+                    border: '1px solid rgba(90,169,255,0.2)',
+                  }}
                 >
                   📊
                 </div>
                 <div>
-                  <div className="text-4xl font-black tracking-tight mb-1" style={{ color: '#5aa9ff' }}>+2</div>
-                  <div className="text-sm font-bold text-white mb-1">Exact score</div>
-                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <div
+                    className="mb-1 text-4xl font-black tracking-tight"
+                    style={{ color: '#5aa9ff' }}
+                  >
+                    +2
+                  </div>
+                  <div className="mb-1 text-sm font-bold text-white">Exact score</div>
+                  <div
+                    className="text-xs leading-relaxed"
+                    style={{ color: 'rgba(255,255,255,0.35)' }}
+                  >
                     You also predicted the exact series score (e.g. 3-1).
                   </div>
                 </div>
                 <div className="mt-auto pt-2">
-                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                  <div
+                    className="mb-1 flex justify-between text-[10px]"
+                    style={{ color: 'rgba(255,255,255,0.25)' }}
+                  >
                     <span>bonus</span>
                     <span>2 / 5</span>
                   </div>
-                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                    <div className="h-full rounded-full" style={{ width: '40%', background: '#5aa9ff' }} />
+                  <div
+                    className="h-1 overflow-hidden rounded-full"
+                    style={{ background: 'rgba(255,255,255,0.06)' }}
+                  >
+                    <div
+                      className="h-full rounded-full"
+                      style={{ width: '40%', background: '#5aa9ff' }}
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Perfect — featured card */}
               <div
-                className="p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden"
+                className="relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,212,59,0.07) 0%, rgba(251,146,36,0.05) 100%)',
+                  background:
+                    'linear-gradient(135deg, rgba(255,212,59,0.07) 0%, rgba(251,146,36,0.05) 100%)',
                   border: '1px solid rgba(255,212,59,0.22)',
                 }}
               >
                 {/* ambient glow */}
                 <div
-                  className="absolute -top-8 -right-8 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                  className="pointer-events-none absolute -top-8 -right-8 h-32 w-32 rounded-full blur-3xl"
                   style={{ background: 'rgba(255,212,59,0.12)' }}
                 />
 
                 <div className="relative flex items-center justify-between">
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
-                    style={{ background: 'rgba(255,212,59,0.12)', border: '1px solid rgba(255,212,59,0.25)' }}
+                    className="flex h-9 w-9 items-center justify-center rounded-xl text-lg"
+                    style={{
+                      background: 'rgba(255,212,59,0.12)',
+                      border: '1px solid rgba(255,212,59,0.25)',
+                    }}
                   >
                     ✨
                   </div>
                   <span
-                    className="text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide uppercase"
-                    style={{ background: 'rgba(255,212,59,0.12)', color: '#ffd43b', border: '1px solid rgba(255,212,59,0.2)' }}
+                    className="rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
+                    style={{
+                      background: 'rgba(255,212,59,0.12)',
+                      color: '#ffd43b',
+                      border: '1px solid rgba(255,212,59,0.2)',
+                    }}
                   >
                     Max
                   </span>
@@ -1311,26 +1437,39 @@ export default function Home() {
 
                 <div className="relative">
                   <div
-                    className="text-4xl font-black tracking-tight mb-1"
+                    className="mb-1 text-4xl font-black tracking-tight"
                     style={{ color: '#ffd43b' }}
                   >
                     +5
                   </div>
-                  <div className="text-sm font-bold text-white mb-1">Perfect prediction</div>
-                  <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    Right winner <span style={{ color: 'rgba(255,255,255,0.2)' }}>+</span> exact score — maximum reward.
+                  <div className="mb-1 text-sm font-bold text-white">Perfect prediction</div>
+                  <div
+                    className="text-xs leading-relaxed"
+                    style={{ color: 'rgba(255,255,255,0.4)' }}
+                  >
+                    Right winner <span style={{ color: 'rgba(255,255,255,0.2)' }}>+</span> exact
+                    score — maximum reward.
                   </div>
                 </div>
 
                 <div className="relative mt-auto pt-2">
-                  <div className="flex justify-between text-[10px] mb-1" style={{ color: 'rgba(255,212,59,0.4)' }}>
+                  <div
+                    className="mb-1 flex justify-between text-[10px]"
+                    style={{ color: 'rgba(255,212,59,0.4)' }}
+                  >
                     <span>full reward</span>
                     <span>5 / 5</span>
                   </div>
-                  <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                  <div
+                    className="h-1 overflow-hidden rounded-full"
+                    style={{ background: 'rgba(255,255,255,0.06)' }}
+                  >
                     <div
                       className="h-full rounded-full"
-                      style={{ width: '100%', background: 'linear-gradient(90deg, #ffd43b, #fb923c)' }}
+                      style={{
+                        width: '100%',
+                        background: 'linear-gradient(90deg, #ffd43b, #fb923c)',
+                      }}
                     />
                   </div>
                 </div>
@@ -1339,15 +1478,16 @@ export default function Home() {
 
             {/* Bottom note */}
             <div
-              className="flex items-start gap-3 px-5 py-4 rounded-xl"
+              className="flex items-start gap-3 rounded-xl px-5 py-4"
               style={{
                 background: 'rgba(255,255,255,0.02)',
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
             >
-              <span className="text-base shrink-0 mt-0.5">🍌</span>
+              <span className="mt-0.5 shrink-0 text-base">🍌</span>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                Points are awarded automatically once the match result is confirmed. You can update your prediction at any time{' '}
+                Points are awarded automatically once the match result is confirmed. You can update
+                your prediction at any time{' '}
                 <span style={{ color: 'rgba(255,255,255,0.6)' }}>until the match starts</span>.
               </p>
             </div>
@@ -1356,29 +1496,29 @@ export default function Home() {
 
         {/* ── CTA ── */}
         <section
-          className="py-36 px-6 relative overflow-hidden"
+          className="relative overflow-hidden px-6 py-36"
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
         >
-          <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[100px]"
+              className="absolute top-1/2 left-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
               style={{ background: 'rgba(90,169,255,0.08)' }}
             />
           </div>
           <div className="relative mx-auto max-w-2xl text-center">
-            <div className="text-7xl mb-6">🍌</div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
+            <div className="mb-6 text-7xl">🍌</div>
+            <h2 className="mb-4 text-4xl font-black tracking-tight md:text-5xl">
               Ready to predict?
             </h2>
             <p className="mb-8 text-lg" style={{ color: 'rgba(255,255,255,0.4)' }}>
               Add Bananalyz to your server in 30 seconds and start your first prediction.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href={INVITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:brightness-110 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold transition-all hover:scale-[1.02] hover:brightness-110"
                 style={{ background: '#5aa9ff', color: '#0a0f1e' }}
               >
                 Add to Discord <ChevronRight size={18} />
@@ -1387,7 +1527,7 @@ export default function Home() {
                 href={TOPGG_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:brightness-110 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold transition-all hover:scale-[1.02] hover:brightness-110"
                 style={{
                   background: 'rgba(255,196,0,0.1)',
                   border: '1px solid rgba(255,196,0,0.3)',
@@ -1398,30 +1538,56 @@ export default function Home() {
                 Vote on Top.gg
               </Link>
             </div>
-            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>Free to use · Help us grow by voting 🙏</p>
+            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>
+              Free to use · Help us grow by voting 🙏
+            </p>
           </div>
         </section>
       </main>
 
-      <footer
-        className="py-10 px-6"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-      >
+      <footer className="px-6 py-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div
-          className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 text-sm"
+          className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm sm:flex-row"
           style={{ color: 'rgba(255,255,255,0.2)' }}
         >
           <div className="flex items-center gap-2">
-            <span className='font-semibold'>Bananalyz</span>
+            <span className="font-semibold">Bananalyz</span>
             <span> — Made with 🍌 by Jungle Squad</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/docs" className="hover:text-white/50 transition-colors">Docs</Link>
-            <Link href={TOPGG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Top.gg</Link>
-            <Link href="/terms" className="hover:text-white/50 transition-colors">Terms</Link>
-            <Link href="/privacy" className="hover:text-white/50 transition-colors">Privacy</Link>
-            <Link href="https://x.com/wonezer" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Twitter</Link>
-            <Link href="https://github.com/wonecode" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">GitHub</Link>
+            <Link href="/docs" className="transition-colors hover:text-white/50">
+              Docs
+            </Link>
+            <Link
+              href={TOPGG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white/50"
+            >
+              Top.gg
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-white/50">
+              Terms
+            </Link>
+            <Link href="/privacy" className="transition-colors hover:text-white/50">
+              Privacy
+            </Link>
+            <Link
+              href="https://x.com/wonezer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white/50"
+            >
+              Twitter
+            </Link>
+            <Link
+              href="https://github.com/wonecode"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white/50"
+            >
+              GitHub
+            </Link>
           </div>
         </div>
       </footer>
