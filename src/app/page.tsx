@@ -18,6 +18,8 @@ import {
 const INVITE_URL =
   'https://discord.com/oauth2/authorize?client_id=1498348728078176377&permissions=139586750592&scope=bot+applications.commands';
 
+const TOPGG_URL = 'https://top.gg/fr/bot/1498348728078176377';
+
 const features = [
   {
     icon: Zap,
@@ -718,6 +720,19 @@ export default function Home() {
               Docs
             </Link>
             <Link
+              href={TOPGG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 transition-colors font-medium"
+              style={{ color: 'rgba(255,255,255,0.45)' }}
+            >
+              {/* Top.gg star icon */}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Top.gg
+            </Link>
+            <Link
               href={INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
@@ -800,6 +815,22 @@ export default function Home() {
                 style={{ background: '#5aa9ff', color: '#0a0f1e' }}
               >
                 Add to Discord <ChevronRight size={16} />
+              </Link>
+              <Link
+                href={TOPGG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-base transition-all hover:brightness-110"
+                style={{
+                  background: 'rgba(255,196,0,0.1)',
+                  border: '1px solid rgba(255,196,0,0.3)',
+                  color: '#ffc400',
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Vote on Top.gg
               </Link>
               <Link
                 href="/docs"
@@ -1325,16 +1356,34 @@ export default function Home() {
             <p className="mb-8 text-lg" style={{ color: 'rgba(255,255,255,0.4)' }}>
               Add Bananalyz to your server in 30 seconds and start your first prediction.
             </p>
-            <Link
-              href={INVITE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:brightness-110 hover:scale-[1.02]"
-              style={{ background: '#5aa9ff', color: '#0a0f1e' }}
-            >
-              Add to Discord <ChevronRight size={18} />
-            </Link>
-            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>Free to use</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href={INVITE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:brightness-110 hover:scale-[1.02]"
+                style={{ background: '#5aa9ff', color: '#0a0f1e' }}
+              >
+                Add to Discord <ChevronRight size={18} />
+              </Link>
+              <Link
+                href={TOPGG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:brightness-110 hover:scale-[1.02]"
+                style={{
+                  background: 'rgba(255,196,0,0.1)',
+                  border: '1px solid rgba(255,196,0,0.3)',
+                  color: '#ffc400',
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Vote on Top.gg
+              </Link>
+            </div>
+            <p className="mt-5 text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>Free to use · Help us grow by voting 🙏</p>
           </div>
         </section>
       </main>
@@ -1353,6 +1402,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-6">
             <Link href="/docs" className="hover:text-white/50 transition-colors">Docs</Link>
+            <Link href={TOPGG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Top.gg</Link>
             <Link href="/terms" className="hover:text-white/50 transition-colors">Terms</Link>
             <Link href="/privacy" className="hover:text-white/50 transition-colors">Privacy</Link>
             <Link href="https://x.com/wonezer" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Twitter</Link>
