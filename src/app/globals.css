@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import 'fumadocs-ui/style.css';
+@import 'tailwindcss';
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -17,25 +17,26 @@
 
 /* Navbar CTA — Top.gg pill */
 .nav-topgg {
-  background: rgba(255, 196, 0, 0.08);
-  border: 1px solid rgba(255, 196, 0, 0.22);
-  color: #ffc400;
+  background: rgba(255, 196, 0, 0.08) !important;
+  border: 1px solid rgba(255, 196, 0, 0.28) !important;
+  color: #ffc400 !important;
   transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 .nav-topgg:hover {
-  background: rgba(255, 196, 0, 0.15);
-  border-color: rgba(255, 196, 0, 0.4);
-  box-shadow: 0 0 12px rgba(255, 196, 0, 0.15);
+  background: rgba(255, 196, 0, 0.16) !important;
+  border-color: rgba(255, 196, 0, 0.45) !important;
+  box-shadow: 0 0 14px rgba(255, 196, 0, 0.18) !important;
 }
 
 /* Navbar CTA — Add to Discord */
 .nav-discord {
-  background: linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%);
-  color: #fff;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 4px 14px rgba(90, 169, 255, 0.25);
+  background: linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 4px 14px rgba(90, 169, 255, 0.3) !important;
   transition: box-shadow 180ms ease, transform 180ms ease;
 }
 .nav-discord:hover {
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 6px 20px rgba(90, 169, 255, 0.38);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 6px 22px rgba(90, 169, 255, 0.42) !important;
   transform: translateY(-1px);
 }
