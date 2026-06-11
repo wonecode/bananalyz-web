@@ -819,22 +819,7 @@ export default function Home() {
               href={TOPGG_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition-all"
-              style={{
-                background: 'rgba(255,196,0,0.08)',
-                border: '1px solid rgba(255,196,0,0.22)',
-                color: '#ffc400',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(255,196,0,0.15)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,196,0,0.4)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 12px rgba(255,196,0,0.15)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(255,196,0,0.08)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,196,0,0.22)';
-                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-              }}
+              className="nav-topgg flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold"
             >
               <TopGgIcon size={14} />
               Top.gg
@@ -845,22 +830,7 @@ export default function Home() {
               href={INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition-all"
-              style={{
-                background: 'linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%)',
-                color: '#fff',
-                boxShadow: '0 1px 0 rgba(255,255,255,0.12) inset, 0 4px 14px rgba(90,169,255,0.25)',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  '0 1px 0 rgba(255,255,255,0.12) inset, 0 6px 20px rgba(90,169,255,0.38)';
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  '0 1px 0 rgba(255,255,255,0.12) inset, 0 4px 14px rgba(90,169,255,0.25)';
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-              }}
+              className="nav-discord flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold"
             >
               <DiscordIcon size={15} />
               Add to Discord
@@ -872,12 +842,7 @@ export default function Home() {
             href={INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-bold md:hidden"
-            style={{
-              background: 'linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%)',
-              color: '#fff',
-              boxShadow: '0 4px 14px rgba(90,169,255,0.3)',
-            }}
+            className="nav-discord flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-bold md:hidden"
           >
             <DiscordIcon size={14} />
             Add bot
