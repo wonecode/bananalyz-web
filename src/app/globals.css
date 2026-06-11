@@ -15,7 +15,7 @@
   animation: marquee 32s linear infinite;
 }
 
-/* Navbar CTA — scopé au header pour ne pas impacter la docs */
+/* ─── Navbar CTAs (scopés au header) ─────────────────────────── */
 header .nav-topgg {
   background: rgba(255, 196, 0, 0.08) !important;
   border: 1px solid rgba(255, 196, 0, 0.28) !important;
@@ -38,4 +38,79 @@ header .nav-discord {
 header .nav-discord:hover {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 6px 22px rgba(90, 169, 255, 0.42) !important;
   transform: translateY(-1px);
+}
+
+/* ─── Landing CTAs (scopés à main) ───────────────────────────── */
+
+/* Primaire — Add to Discord */
+main .cta-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%);
+  color: #0a0f1e;
+  border: none;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 4px 20px rgba(90, 169, 255, 0.35);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+main .cta-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+main .cta-primary:hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 8px 28px rgba(90, 169, 255, 0.5);
+  transform: translateY(-2px);
+}
+main .cta-primary:hover::after {
+  opacity: 1;
+}
+main .cta-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(90, 169, 255, 0.3);
+}
+
+/* Secondaire — Vote on Top.gg */
+main .cta-topgg {
+  background: rgba(255, 196, 0, 0.08);
+  border: 1px solid rgba(255, 196, 0, 0.3);
+  color: #ffc400;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+main .cta-topgg:hover {
+  background: rgba(255, 196, 0, 0.15);
+  border-color: rgba(255, 196, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 196, 0, 0.2);
+  transform: translateY(-2px);
+}
+main .cta-topgg:active {
+  transform: translateY(0);
+}
+
+/* Ghost — Read the docs */
+main .cta-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+main .cta-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Lien texte bleu ("See all commands") */
+main .cta-link {
+  color: #5aa9ff;
+  transition: color 180ms ease, gap 180ms ease;
+}
+main .cta-link:hover {
+  color: #7dbfff;
 }

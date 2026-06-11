@@ -138,14 +138,13 @@ function TopGgIcon({ size = 14 }: { size?: number }) {
 function DiscordIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
       fill="currentColor"
-      className="bi bi-discord"
-      viewBox="0 0 16 16"
+      aria-hidden="true"
     >
-      <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612" />
+      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.032.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
     </svg>
   );
 }
@@ -815,30 +814,27 @@ export default function Home() {
               Docs
             </Link>
 
-            {/* Top.gg — pill bouton jaune */}
             <Link
               href={TOPGG_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="nav-topgg flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold"
+              className="nav-topgg flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold"
             >
-              <TopGgIcon size={16} />
-              Vote on Top.gg
+              <TopGgIcon size={14} />
+              Top.gg
             </Link>
 
-            {/* Add to Discord — bouton premium */}
             <Link
               href={INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-discord flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold"
             >
-              <DiscordIcon size={16} />
+              <DiscordIcon size={15} />
               Add to Discord
             </Link>
           </nav>
 
-          {/* Mobile CTA */}
           <Link
             href={INVITE_URL}
             target="_blank"
@@ -852,9 +848,8 @@ export default function Home() {
       </header>
 
       <main>
-        {/* ── Hero (simplified) ── */}
+        {/* ── Hero ── */}
         <section className="relative overflow-hidden px-6 pt-40 pb-16">
-          {/* Glow */}
           <div className="pointer-events-none absolute inset-0" aria-hidden>
             <div
               className="absolute top-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[120px]"
@@ -863,7 +858,6 @@ export default function Home() {
           </div>
 
           <div className="relative mx-auto max-w-4xl text-center">
-            {/* Badge */}
             <div className="mb-8 flex justify-center">
               <div
                 className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
@@ -878,7 +872,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Headline */}
             <h1 className="mb-5 text-5xl leading-[1.05] font-black tracking-tight sm:text-6xl md:text-7xl">
               <span style={{ color: 'rgba(255,255,255,0.95)' }}>Predict. </span>
               <span
@@ -894,7 +887,6 @@ export default function Home() {
               <span style={{ color: 'rgba(255,255,255,0.95)' }}>Dominate.</span>
             </h1>
 
-            {/* Subline */}
             <p
               className="mx-auto mb-8 max-w-xl text-lg leading-relaxed md:text-xl"
               style={{ color: 'rgba(255,255,255,0.45)' }}
@@ -903,44 +895,35 @@ export default function Home() {
               score points, climb the leaderboard.
             </p>
 
-            {/* CTAs */}
+            {/* Hero CTAs */}
             <div className="mb-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href={INVITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-bold transition-all hover:brightness-110"
-                style={{ background: '#5aa9ff', color: '#0a0f1e' }}
+                className="cta-primary flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-bold"
               >
-                Add to Discord <ChevronRight size={16} />
+                <DiscordIcon size={18} />
+                Add to Discord
+                <ChevronRight size={16} />
               </Link>
               <Link
                 href={TOPGG_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold transition-all hover:brightness-110"
-                style={{
-                  background: 'rgba(255,196,0,0.1)',
-                  border: '1px solid rgba(255,196,0,0.3)',
-                  color: '#ffc400',
-                }}
+                className="cta-topgg flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold"
               >
-                <TopGgIcon size={20} />
+                <TopGgIcon size={18} />
                 Vote on Top.gg
               </Link>
               <Link
                 href="/docs"
-                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-medium"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'rgba(255,255,255,0.55)',
-                }}
+                className="cta-ghost flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-medium"
               >
                 Read the docs
               </Link>
             </div>
 
-            {/* Social proof */}
             <div
               className="mb-16 flex items-center justify-center gap-6 text-sm"
               style={{ color: 'rgba(255,255,255,0.25)' }}
@@ -953,7 +936,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Single hero embed */}
             <div className="relative mx-auto max-w-md">
               <div
                 className="absolute -inset-6 rounded-3xl blur-3xl"
@@ -1135,7 +1117,6 @@ export default function Home() {
                   community. Both leaderboards update automatically after each scored match.
                 </p>
 
-                {/* Server vs Global pills */}
                 <div className="mb-7 flex gap-3">
                   <div
                     className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
@@ -1262,8 +1243,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/docs/commands"
-                  className="inline-flex items-center gap-2 font-semibold transition-all hover:gap-3"
-                  style={{ color: '#5aa9ff' }}
+                  className="cta-link inline-flex items-center gap-2 font-semibold transition-all hover:gap-3"
                 >
                   See all commands <ChevronRight size={15} />
                 </Link>
@@ -1297,7 +1277,6 @@ export default function Home() {
         {/* ── Scoring ── */}
         <section className="px-6 py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="mx-auto max-w-4xl">
-            {/* Header */}
             <div className="mb-14 text-center">
               <p
                 className="mb-3 text-xs font-bold tracking-widest uppercase"
@@ -1311,9 +1290,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Cards — always 3 columns side by side */}
             <div className="mb-6 grid grid-cols-3 gap-4">
-              {/* Correct winner */}
               <div
                 className="flex flex-col gap-3 rounded-2xl p-6"
                 style={{
@@ -1345,7 +1322,6 @@ export default function Home() {
                     You picked the right team — regardless of the final score.
                   </div>
                 </div>
-                {/* mini progress bar */}
                 <div className="mt-auto pt-2">
                   <div
                     className="mb-1 flex justify-between text-[10px]"
@@ -1366,7 +1342,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Exact score */}
               <div
                 className="flex flex-col gap-3 rounded-2xl p-6"
                 style={{
@@ -1418,7 +1393,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Perfect — featured card */}
               <div
                 className="relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6"
                 style={{
@@ -1427,7 +1401,6 @@ export default function Home() {
                   border: '1px solid rgba(255,212,59,0.22)',
                 }}
               >
-                {/* ambient glow */}
                 <div
                   className="pointer-events-none absolute -top-8 -right-8 h-32 w-32 rounded-full blur-3xl"
                   style={{ background: 'rgba(255,212,59,0.12)' }}
@@ -1496,7 +1469,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Bottom note */}
             <div
               className="flex items-start gap-3 rounded-xl px-5 py-4"
               style={{
@@ -1514,7 +1486,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
+        {/* ── CTA finale ── */}
         <section
           className="relative overflow-hidden px-6 py-36"
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
@@ -1538,21 +1510,17 @@ export default function Home() {
                 href={INVITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold transition-all hover:scale-[1.02] hover:brightness-110"
-                style={{ background: '#5aa9ff', color: '#0a0f1e' }}
+                className="cta-primary inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold"
               >
-                Add to Discord <ChevronRight size={18} />
+                <DiscordIcon size={20} />
+                Add to Discord
+                <ChevronRight size={18} />
               </Link>
               <Link
                 href={TOPGG_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold transition-all hover:scale-[1.02] hover:brightness-110"
-                style={{
-                  background: 'rgba(255,196,0,0.1)',
-                  border: '1px solid rgba(255,196,0,0.3)',
-                  color: '#ffc400',
-                }}
+                className="cta-topgg inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg font-bold"
               >
                 <TopGgIcon size={22} />
                 Vote on Top.gg
