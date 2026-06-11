@@ -44,28 +44,28 @@ header .nav-discord:hover {
 
 /* Primaire — Add to Discord */
 main .cta-primary {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%);
-  color: #0a0f1e;
-  border: none;
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #ffc400 0%, #f59e0b 100%) !important;
+  color: #0a0f1e !important;
+  border: none !important;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.15) inset,
-    0 4px 20px rgba(90, 169, 255, 0.35);
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 4px 20px rgba(255, 196, 0, 0.4) !important;
   transition: box-shadow 200ms ease, transform 200ms ease;
 }
 main .cta-primary::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  background: linear-gradient(105deg, rgba(255,255,255,0.22) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 200ms ease;
 }
 main .cta-primary:hover {
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.15) inset,
-    0 8px 28px rgba(90, 169, 255, 0.5);
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 8px 30px rgba(255, 196, 0, 0.55) !important;
   transform: translateY(-2px);
 }
 main .cta-primary:hover::after {
@@ -73,20 +73,20 @@ main .cta-primary:hover::after {
 }
 main .cta-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(90, 169, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(255, 196, 0, 0.3) !important;
 }
 
 /* Secondaire — Vote on Top.gg */
 main .cta-topgg {
-  background: rgba(255, 196, 0, 0.08);
-  border: 1px solid rgba(255, 196, 0, 0.3);
-  color: #ffc400;
-  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 main .cta-topgg:hover {
-  background: rgba(255, 196, 0, 0.15);
-  border-color: rgba(255, 196, 0, 0.5);
-  box-shadow: 0 0 20px rgba(255, 196, 0, 0.2);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   transform: translateY(-2px);
 }
 main .cta-topgg:active {
@@ -95,22 +95,22 @@ main .cta-topgg:active {
 
 /* Ghost — Read the docs */
 main .cta-ghost {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.5);
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.35) !important;
   transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
 }
 main .cta-ghost:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* Lien texte bleu ("See all commands") */
 main .cta-link {
-  color: #5aa9ff;
+  color: #5aa9ff !important;
   transition: color 180ms ease, gap 180ms ease;
 }
 main .cta-link:hover {
-  color: #7dbfff;
+  color: #7dbfff !important;
 }
