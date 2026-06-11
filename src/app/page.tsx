@@ -135,6 +135,20 @@ function TopGgIcon({ size = 14 }: { size?: number }) {
   );
 }
 
+function DiscordIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.032.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
+    </svg>
+  );
+}
+
 // ─────────────────────────────────────────
 function DiscordMessage({ time, children }: { time: string; children: React.ReactNode }) {
   return (
@@ -791,41 +805,81 @@ export default function Home() {
             <img alt="banana" src="android-chrome-192x192.png" className="h-6 w-6" />
             <span className="tracking-tight text-white">Bananalyz</span>
           </Link>
-          <nav className="items-center gap-8 text-sm md:flex">
+          <nav className="items-center gap-3 text-sm md:flex">
             <Link
               href="/docs"
-              className="transition-colors"
+              className="px-3 py-2 transition-colors"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
               Docs
             </Link>
+
+            {/* Top.gg — pill bouton jaune */}
             <Link
               href={TOPGG_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 font-medium transition-colors"
-              style={{ color: 'rgba(255,255,255,0.45)' }}
+              className="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition-all"
+              style={{
+                background: 'rgba(255,196,0,0.08)',
+                border: '1px solid rgba(255,196,0,0.22)',
+                color: '#ffc400',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,196,0,0.15)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,196,0,0.4)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 12px rgba(255,196,0,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,196,0,0.08)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,196,0,0.22)';
+                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+              }}
             >
-              <TopGgIcon size={16} />
+              <TopGgIcon size={14} />
               Top.gg
             </Link>
+
+            {/* Add to Discord — bouton premium */}
             <Link
               href={INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg px-4 py-2 font-semibold transition-all hover:brightness-110"
-              style={{ background: '#5aa9ff', color: '#0a0f1e' }}
+              className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition-all"
+              style={{
+                background: 'linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%)',
+                color: '#fff',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.12) inset, 0 4px 14px rgba(90,169,255,0.25)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  '0 1px 0 rgba(255,255,255,0.12) inset, 0 6px 20px rgba(90,169,255,0.38)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  '0 1px 0 rgba(255,255,255,0.12) inset, 0 4px 14px rgba(90,169,255,0.25)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              }}
             >
+              <DiscordIcon size={15} />
               Add to Discord
             </Link>
           </nav>
+
+          {/* Mobile CTA */}
           <Link
             href={INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg px-3 py-1.5 text-sm font-semibold md:hidden"
-            style={{ background: '#5aa9ff', color: '#0a0f1e' }}
+            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-bold md:hidden"
+            style={{
+              background: 'linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%)',
+              color: '#fff',
+              boxShadow: '0 4px 14px rgba(90,169,255,0.3)',
+            }}
           >
+            <DiscordIcon size={14} />
             Add bot
           </Link>
         </div>
