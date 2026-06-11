@@ -64,7 +64,7 @@ const TEAM_LOGOS: Record<string, string> = {
   'Fnatic': '/logos/fnc.png',
   'Team Vitality': '/logos/vit.png',
   'Team Heretics': '/logos/th.png',
-  'Movistar KOI': '/logos/mkoi.webp',
+  'Movistar KOI': '/logos/MKOI.webp',
   'SK Gaming': '/logos/sk.png',
   'Giants': '/logos/gx.png',
   'NAVI': '/logos/navi.png',
@@ -748,7 +748,7 @@ export default function Home() {
               className="flex items-center gap-1.5 transition-colors font-medium"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
-              <TopGgIcon size={14} />
+              <TopGgIcon size={16} />
               Top.gg
             </Link>
             <Link
@@ -846,7 +846,7 @@ export default function Home() {
                   color: '#ffc400',
                 }}
               >
-                <TopGgIcon size={15} />
+                <TopGgIcon size={20} />
                 Vote on Top.gg
               </Link>
               <Link
@@ -1394,7 +1394,7 @@ export default function Home() {
                   color: '#ffc400',
                 }}
               >
-                <TopGgIcon size={18} />
+                <TopGgIcon size={22} />
                 Vote on Top.gg
               </Link>
             </div>
