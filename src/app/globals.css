@@ -46,12 +46,10 @@ header .nav-discord:hover {
 main .cta-primary {
   position: relative !important;
   overflow: hidden !important;
-  background: linear-gradient(135deg, #ffc400 0%, #f59e0b 100%) !important;
-  color: #0a0f1e !important;
+  background: linear-gradient(135deg, #5aa9ff 0%, #3d8fe8 100%) !important;
+  color: #fff !important;
   border: none !important;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.2) inset,
-    0 4px 20px rgba(255, 196, 0, 0.4) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 4px 14px rgba(90, 169, 255, 0.3) !important;
   transition: box-shadow 200ms ease, transform 200ms ease;
 }
 main .cta-primary::after {
@@ -63,9 +61,7 @@ main .cta-primary::after {
   transition: opacity 200ms ease;
 }
 main .cta-primary:hover {
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.2) inset,
-    0 8px 30px rgba(255, 196, 0, 0.55) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 6px 22px rgba(90, 169, 255, 0.42) !important;
   transform: translateY(-2px);
 }
 main .cta-primary:hover::after {
@@ -78,15 +74,15 @@ main .cta-primary:active {
 
 /* Secondaire — Vote on Top.gg */
 main .cta-topgg {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: rgba(255, 255, 255, 0.65) !important;
+  background: rgba(255, 196, 0, 0.08) !important;
+  border: 1px solid rgba(255, 196, 0, 0.28) !important;
+  color: #ffc400 !important;
   transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 main .cta-topgg:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.22) !important;
-  color: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 196, 0, 0.16) !important;
+  border-color: rgba(255, 196, 0, 0.45) !important;
+  box-shadow: 0 0 14px rgba(255, 196, 0, 0.18) !important;
   transform: translateY(-2px);
 }
 main .cta-topgg:active {
