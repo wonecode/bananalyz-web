@@ -45,8 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Bananalyz — LoL Esports Predictions for Discord',
-    description:
-      'Predict LoL esports match outcomes on Discord. Earn points, climb leaderboards.',
+    description: 'Predict LoL esports match outcomes on Discord. Earn points, climb leaderboards.',
     images: ['og.png'],
   },
   robots: {
@@ -77,6 +76,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="xdTbJVfU02r-YGsUb77a8KQSwwzrn5o9F_R-ZtSjOJQ"
+        />
+      </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <RootProvider>{children}</RootProvider>
       </body>

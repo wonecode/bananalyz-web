@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { source } from '@/lib/source';
 
-const BASE_URL = 'https://bananalyz.com';
+const BASE_URL = 'https://bananalyz.junglesquad.fr';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const docPages = source.getPages().map((page) => ({
