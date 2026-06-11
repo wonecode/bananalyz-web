@@ -114,6 +114,28 @@ function LeagueLogo({ name, size = 16 }: { name: string; size?: number }) {
   );
 }
 
+function TopGgIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="120 120 580 580"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      aria-hidden="true"
+    >
+      <path
+        fill="currentColor"
+        d="M655.711 247H330.71V572H397.113C422.599 572 447.042 561.876 465.064 543.854C483.086 525.832 493.21 501.389 493.21 475.902V409.5H559.613C585.099 409.5 609.542 399.375 627.564 381.354C645.586 363.332 655.711 338.889 655.711 313.402V247Z"
+      />
+      <path
+        fill="currentColor"
+        d="M144 247H306.5V409.5H193.657C180.531 409.5 167.943 404.286 158.661 395.004C149.379 385.722 144.165 373.134 144.165 360.008L144 247Z"
+      />
+    </svg>
+  );
+}
+
 // ─────────────────────────────────────────
 function DiscordMessage({
   time,
@@ -726,10 +748,7 @@ export default function Home() {
               className="flex items-center gap-1.5 transition-colors font-medium"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
-              {/* Top.gg star icon */}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
+              <TopGgIcon size={14} />
               Top.gg
             </Link>
             <Link
@@ -827,9 +846,7 @@ export default function Home() {
                   color: '#ffc400',
                 }}
               >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+                <TopGgIcon size={15} />
                 Vote on Top.gg
               </Link>
               <Link
@@ -1377,9 +1394,7 @@ export default function Home() {
                   color: '#ffc400',
                 }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+                <TopGgIcon size={18} />
                 Vote on Top.gg
               </Link>
             </div>
