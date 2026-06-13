@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <RootProvider>{children}</RootProvider>
+        <Analytics />
       </body>
     </html>
   );
