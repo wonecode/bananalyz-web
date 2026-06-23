@@ -29,8 +29,9 @@ export function LeagueToggle({ leagueId, initialEnabled, color }: Props) {
     }
   }
 
-  const trackColor = enabled ? color : 'rgba(255,255,255,0.1)';
-  const thumbPos = enabled ? 'calc(100% - 2px)' : '2px';
+  // track: 40px wide, thumb: 14px, padding: 3px each side
+  // OFF: left = 3px  |  ON: left = 40 - 14 - 3 = 23px
+  const thumbPos = enabled ? '23px' : '3px';
 
   return (
     <button
@@ -44,25 +45,25 @@ export function LeagueToggle({ leagueId, initialEnabled, color }: Props) {
         height: 22,
         borderRadius: 99,
         border: `1px solid ${enabled ? color : 'rgba(255,255,255,0.12)'}`,
-        background: enabled ? `${color}20` : 'rgba(255,255,255,0.04)',
+        background: enabled ? `${color}22` : 'rgba(255,255,255,0.04)',
         cursor: loading ? 'wait' : 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'background 0.2s ease, border-color 0.2s ease',
         outline: 'none',
         opacity: loading ? 0.6 : 1,
+        padding: 0,
       }}
     >
-      {/* Thumb */}
       <span style={{
         position: 'absolute',
         top: '50%',
         transform: 'translateY(-50%)',
         left: thumbPos,
-        width: 16,
-        height: 16,
+        width: 14,
+        height: 14,
         borderRadius: '50%',
-        background: enabled ? color : 'rgba(255,255,255,0.25)',
-        transition: 'left 0.2s ease, background 0.2s ease',
-        boxShadow: enabled ? `0 0 6px ${color}80` : 'none',
+        background: enabled ? color : 'rgba(255,255,255,0.22)',
+        transition: 'left 0.2s ease, background 0.2s ease, box-shadow 0.2s ease',
+        boxShadow: enabled ? `0 0 6px ${color}88` : 'none',
         display: 'block',
       }} />
     </button>
