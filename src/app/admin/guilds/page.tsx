@@ -1,6 +1,4 @@
 import { fetchAdmin } from '@/lib/admin-api';
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
 
 type Guild = {
   id: string;
@@ -13,6 +11,17 @@ type Guild = {
 
 type GuildsResponse = { guilds: Guild[]; total: number };
 
+function timeAgo(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const rtf = new Intl.RelativeTimeFormat('fr', { numeric: 'auto' });
+  const minutes = Math.floor(diff / 60_000);
+  const hours = Math.floor(diff / 3_600_000);
+  const days = Math.floor(diff / 86_400_000);
+  if (days > 0) return rtf.format(-days, 'day');
+  if (hours > 0) return rtf.format(-hours, 'hour');
+  return rtf.format(-minutes, 'minute');
+}
+
 export default async function GuildsPage() {
   const data = await fetchAdmin<GuildsResponse>('/guilds');
   const guilds = data?.guilds ?? [];
@@ -22,7 +31,9 @@ export default async function GuildsPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white">Serveurs</h1>
-          <p className="mt-1 text-sm text-white/30">{guilds.length} serveur{guilds.length > 1 ? 's' : ''} enregistré{guilds.length > 1 ? 's' : ''}</p>
+          <p className="mt-1 text-sm text-white/30">
+            {guilds.length} serveur{guilds.length > 1 ? 's' : ''} enregistré{guilds.length > 1 ? 's' : ''}
+          </p>
         </div>
       </div>
 
@@ -95,7 +106,7 @@ export default async function GuildsPage() {
                   </div>
                 </td>
                 <td className="px-5 py-4 text-xs text-white/25">
-                  {formatDistanceToNow(new Date(guild.createdAt), { addSuffix: true, locale: fr })}
+                  {timeAgo(guild.createdAt)}
                 </td>
               </tr>
             ))}
