@@ -1,7 +1,16 @@
 const ADMIN_API_URL = process.env.ADMIN_API_URL;
 const ADMIN_API_SECRET = process.env.ADMIN_API_SECRET;
 
-export async function fetchAdmin<T>(path: string): Promise<T | null> {
+type FetchOptions = {
+  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  body?: unknown;
+  revalidate?: number;
+};
+
+export async function fetchAdmin<T>(
+  path: string,
+  { method = 'GET', body, revalidate = 30 }: FetchOptions = {}
+): Promise<T | null> {
   if (!ADMIN_API_URL || !ADMIN_API_SECRET) {
     console.error('[admin-api] ADMIN_API_URL or ADMIN_API_SECRET not set');
     return null;
@@ -9,12 +18,17 @@ export async function fetchAdmin<T>(path: string): Promise<T | null> {
 
   try {
     const res = await fetch(`${ADMIN_API_URL}/api/admin${path}`, {
-      headers: { Authorization: `Bearer ${ADMIN_API_SECRET}` },
-      next: { revalidate: 30 },
+      method,
+      headers: {
+        Authorization: `Bearer ${ADMIN_API_SECRET}`,
+        ...(body ? { 'Content-Type': 'application/json' } : {}),
+      },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+      next: method === 'GET' ? { revalidate } : undefined,
     });
 
     if (!res.ok) {
-      console.error(`[admin-api] ${path} → ${res.status}`);
+      console.error(`[admin-api] ${method} ${path} → ${res.status}`);
       return null;
     }
 
