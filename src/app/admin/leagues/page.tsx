@@ -14,130 +14,167 @@ type League = {
 
 type LeaguesResponse = { leagues: League[]; total: number };
 
-const LEAGUE_COLORS: Record<string, { bg: string; text: string; border: string; glow: string }> = {
-  lec: { bg: 'rgba(90,169,255,0.1)', text: 'rgba(90,169,255,0.9)', border: 'rgba(90,169,255,0.2)', glow: 'rgba(90,169,255,0.08)' },
-  lck: { bg: 'rgba(255,196,0,0.1)', text: 'rgba(255,196,0,0.85)', border: 'rgba(255,196,0,0.2)', glow: 'rgba(255,196,0,0.08)' },
-  lpl: { bg: 'rgba(255,100,80,0.1)', text: 'rgba(255,100,80,0.85)', border: 'rgba(255,100,80,0.2)', glow: 'rgba(255,100,80,0.08)' },
-  lcs: { bg: 'rgba(52,211,153,0.1)', text: 'rgba(52,211,153,0.85)', border: 'rgba(52,211,153,0.2)', glow: 'rgba(52,211,153,0.08)' },
-  msi: { bg: 'rgba(167,139,250,0.1)', text: 'rgba(167,139,250,0.85)', border: 'rgba(167,139,250,0.2)', glow: 'rgba(167,139,250,0.08)' },
-  worlds: { bg: 'rgba(251,146,60,0.1)', text: 'rgba(251,146,60,0.85)', border: 'rgba(251,146,60,0.2)', glow: 'rgba(251,146,60,0.08)' },
+const LEAGUE_META: Record<string, { color: string; bg: string; border: string; glow: string; label: string }> = {
+  lec:            { color: '#5aa9ff', bg: 'rgba(90,169,255,0.12)',  border: 'rgba(90,169,255,0.22)',  glow: 'rgba(90,169,255,0.07)',  label: 'LEC' },
+  lck:            { color: '#ffc400', bg: 'rgba(255,196,0,0.12)',   border: 'rgba(255,196,0,0.22)',   glow: 'rgba(255,196,0,0.07)',   label: 'LCK' },
+  lpl:            { color: '#ff6450', bg: 'rgba(255,100,80,0.12)',  border: 'rgba(255,100,80,0.22)',  glow: 'rgba(255,100,80,0.07)',  label: 'LPL' },
+  lcs:            { color: '#34d399', bg: 'rgba(52,211,153,0.12)',  border: 'rgba(52,211,153,0.22)',  glow: 'rgba(52,211,153,0.07)',  label: 'LCS' },
+  msi:            { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', border: 'rgba(167,139,250,0.22)', glow: 'rgba(167,139,250,0.07)', label: 'MSI' },
+  worlds:         { color: '#fb923c', bg: 'rgba(251,146,60,0.12)',  border: 'rgba(251,146,60,0.22)',  glow: 'rgba(251,146,60,0.07)',  label: 'WCS' },
+  lfl:            { color: '#60a5fa', bg: 'rgba(96,165,250,0.12)',  border: 'rgba(96,165,250,0.22)',  glow: 'rgba(96,165,250,0.07)',  label: 'LFL' },
+  'emea-masters': { color: '#f472b6', bg: 'rgba(244,114,182,0.12)', border: 'rgba(244,114,182,0.22)', glow: 'rgba(244,114,182,0.07)', label: 'EM'  },
+  'first-stand':  { color: '#94a3b8', bg: 'rgba(148,163,184,0.12)', border: 'rgba(148,163,184,0.22)', glow: 'rgba(148,163,184,0.07)', label: 'FS'  },
 };
 
-function getLeagueColor(slug: string) {
-  return LEAGUE_COLORS[slug.toLowerCase()] ?? {
-    bg: 'rgba(255,255,255,0.06)', text: 'rgba(255,255,255,0.5)',
+function getMeta(slug: string) {
+  return LEAGUE_META[slug.toLowerCase()] ?? {
+    color: 'rgba(255,255,255,0.4)', bg: 'rgba(255,255,255,0.06)',
     border: 'rgba(255,255,255,0.1)', glow: 'rgba(255,255,255,0.03)',
+    label: slug.toUpperCase().slice(0, 4),
   };
-}
-
-function StatPill({ value, label }: { value: number; label: string }) {
-  return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
-      padding: '8px 16px',
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid rgba(255,255,255,0.06)',
-      borderRadius: 8, minWidth: 72,
-    }}>
-      <span style={{ fontSize: 16, fontWeight: 700, color: '#e8eaed', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{value}</span>
-      <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.25)', marginTop: 3, whiteSpace: 'nowrap' }}>{label}</span>
-    </div>
-  );
 }
 
 export default async function LeaguesPage() {
   const data = await fetchAdmin<LeaguesResponse>('/leagues');
   const leagues = data?.leagues ?? [];
 
-  const enabled = leagues.filter((l) => l.isPredictionEnabled).length;
-  const disabled = leagues.length - enabled;
+  const active = leagues.filter((l) => l.isPredictionEnabled);
+  const inactive = leagues.filter((l) => !l.isPredictionEnabled);
 
   return (
-    <div style={{ padding: '32px 36px', maxWidth: 900 }}>
+    <div style={{ padding: '32px 36px', maxWidth: 860 }}>
       {/* Header */}
-      <div style={{ marginBottom: 28, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-        <div>
-          <h1 style={{ fontSize: 20, fontWeight: 650, color: '#e8eaed', margin: 0, letterSpacing: '-0.02em' }}>Ligues</h1>
-          <p style={{ marginTop: 3, fontSize: 12.5, color: 'rgba(255,255,255,0.28)', margin: '3px 0 0' }}>
-            {enabled} active{enabled > 1 ? 's' : ''} &middot; {disabled} inactive{disabled > 1 ? 's' : ''}
-          </p>
+      <div style={{ marginBottom: 28 }}>
+        <h1 style={{ fontSize: 20, fontWeight: 650, color: '#e8eaed', margin: 0, letterSpacing: '-0.02em' }}>Ligues</h1>
+        <p style={{ marginTop: 3, fontSize: 12.5, color: 'rgba(255,255,255,0.28)', margin: '3px 0 0' }}>
+          {active.length} active{active.length > 1 ? 's' : ''} &middot; {inactive.length} inactive{inactive.length > 1 ? 's' : ''}
+        </p>
+      </div>
+
+      {/* Active leagues — prominent cards */}
+      {active.length > 0 && (
+        <div style={{ marginBottom: 32 }}>
+          <SectionLabel>Actives</SectionLabel>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 10 }}>
+            {active.map((league) => (
+              <ActiveCard key={league.id} league={league} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* League cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {leagues.length === 0 && (
-          <div style={{ padding: '56px 16px', textAlign: 'center', color: 'rgba(255,255,255,0.15)', fontSize: 13 }}>Aucune ligue enregistrée.</div>
-        )}
-        {leagues.map((league) => {
-          const c = getLeagueColor(league.slug);
-          return (
-            <div key={league.id} style={{
-              background: '#0b0c0e',
-              border: `1px solid ${league.isPredictionEnabled ? c.border : 'rgba(255,255,255,0.055)'}`,
-              borderRadius: 10,
-              padding: '16px 20px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              position: 'relative',
-              overflow: 'hidden',
-              transition: 'border-color 0.2s',
-            }}>
-              {/* Glow quand actif */}
-              {league.isPredictionEnabled && (
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: `radial-gradient(ellipse at left center, ${c.glow} 0%, transparent 60%)`,
-                  pointerEvents: 'none',
-                }} />
-              )}
+      {/* Inactive leagues — compact table */}
+      {inactive.length > 0 && (
+        <div>
+          <SectionLabel>Inactives</SectionLabel>
+          <div style={{ background: '#0b0c0e', border: '1px solid rgba(255,255,255,0.055)', borderRadius: 10, overflow: 'hidden' }}>
+            {inactive.map((league, i) => (
+              <InactiveRow key={league.id} league={league} last={i === inactive.length - 1} />
+            ))}
+          </div>
+        </div>
+      )}
 
-              {/* Badge slug */}
-              <div style={{
-                flexShrink: 0, minWidth: 52,
-                padding: '5px 10px',
-                borderRadius: 7,
-                background: c.bg,
-                border: `1px solid ${c.border}`,
-                textAlign: 'center',
-              }}>
-                <span style={{ fontSize: 12, fontWeight: 750, color: c.text, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                  {league.slug}
-                </span>
-              </div>
+      {leagues.length === 0 && (
+        <div style={{ padding: '56px 0', textAlign: 'center', color: 'rgba(255,255,255,0.15)', fontSize: 13 }}>
+          Aucune ligue enregistrée.
+        </div>
+      )}
+    </div>
+  );
+}
 
-              {/* Infos */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: '#e8eaed' }}>{league.name}</span>
-                  <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.18)', fontFamily: 'monospace' }}>#{league.pandascoreId}</span>
-                </div>
-                <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.22)', marginTop: 2 }}>
-                  {league.isPredictionEnabled ? (
-                    <span style={{ color: 'rgba(52,211,153,0.7)' }}>✓ Prédictions activées</span>
-                  ) : (
-                    <span>Prédictions désactivées</span>
-                  )}
-                </div>
-              </div>
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{
+      fontSize: 10.5, fontWeight: 600, color: 'rgba(255,255,255,0.22)',
+      letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10,
+    }}>
+      {children}
+    </div>
+  );
+}
 
-              {/* Stats */}
-              <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-                <StatPill value={league.activeGuilds} label="guilds actives" />
-                <StatPill value={league.totalMatches} label="matchs" />
-              </div>
+function ActiveCard({ league }: { league: League }) {
+  const m = getMeta(league.slug);
+  return (
+    <div style={{
+      background: '#0b0c0e',
+      border: `1px solid ${m.border}`,
+      borderRadius: 12,
+      padding: '18px 20px',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Ambient glow */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: `radial-gradient(ellipse at top left, ${m.glow} 0%, transparent 65%)`,
+        pointerEvents: 'none',
+      }} />
 
-              {/* Toggle */}
-              <LeagueToggle
-                leagueId={league.id}
-                initialEnabled={league.isPredictionEnabled}
-                color={c.text}
-              />
+      {/* Top row: info + toggle */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14, position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 7, height: 7, borderRadius: '50%', flexShrink: 0,
+            background: m.color, boxShadow: `0 0 8px ${m.color}88`, marginTop: 2,
+          }} />
+          <div>
+            <div style={{ fontSize: 15, fontWeight: 650, color: '#e8eaed', letterSpacing: '-0.01em' }}>{league.name}</div>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginTop: 1, fontFamily: 'ui-monospace, monospace' }}>
+              {league.slug} &middot; #{league.pandascoreId}
             </div>
-          );
-        })}
+          </div>
+        </div>
+        <LeagueToggle leagueId={league.id} initialEnabled={league.isPredictionEnabled} color={m.color} />
       </div>
+
+      {/* Stats */}
+      <div style={{ display: 'flex', gap: 8, position: 'relative' }}>
+        <StatChip value={league.activeGuilds} label="guilds" color={m.color} />
+        <StatChip value={league.totalMatches} label="matchs" color={m.color} />
+      </div>
+    </div>
+  );
+}
+
+function InactiveRow({ league, last }: { league: League; last: boolean }) {
+  const m = getMeta(league.slug);
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '9px 16px',
+      borderBottom: last ? 'none' : '1px solid rgba(255,255,255,0.038)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{
+          fontSize: 10, fontWeight: 700, color: m.color,
+          background: m.bg, border: `1px solid ${m.border}`,
+          padding: '2px 7px', borderRadius: 5,
+          letterSpacing: '0.04em', minWidth: 34, textAlign: 'center',
+        }}>
+          {m.label}
+        </span>
+        <span style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.35)', fontWeight: 500 }}>{league.name}</span>
+        <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.12)', fontFamily: 'ui-monospace, monospace' }}>#{league.pandascoreId}</span>
+      </div>
+      <LeagueToggle leagueId={league.id} initialEnabled={league.isPredictionEnabled} color={m.color} />
+    </div>
+  );
+}
+
+function StatChip({ value, label, color }: { value: number; label: string; color: string }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 6,
+      padding: '5px 10px',
+      background: 'rgba(255,255,255,0.04)',
+      border: '1px solid rgba(255,255,255,0.07)',
+      borderRadius: 6,
+    }}>
+      <span style={{ fontSize: 13, fontWeight: 700, color, fontVariantNumeric: 'tabular-nums' }}>{value}</span>
+      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)' }}>{label}</span>
     </div>
   );
 }
