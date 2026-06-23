@@ -79,8 +79,10 @@ const LEAGUE_LOGOS: Record<string, string> = {
   LFL: '/logos/lfl.webp',
   MSI: '/logos/msi.webp',
   Worlds: '/logos/worlds.png',
+  'Esports Nations Cup': '/logos/enc.webp',
   'EMEA Masters': '/logos/emea_masters.webp',
   'First Stand': '/logos/first_stand.webp',
+  'Esports World Cup': '/logos/ewc.webp',
 };
 
 function TeamLogo({ name, size = 20 }: { name: string; size?: number }) {
@@ -703,8 +705,10 @@ const LEAGUES_TICKER = [
   { name: 'LFL', src: '/logos/lfl.webp', active: false },
   { name: 'MSI', src: '/logos/msi.webp', active: true },
   { name: 'Worlds', src: '/logos/worlds.png', active: false },
+  { name: 'Esports Nations Cup', src: '/logos/enc.webp', active: false },
   { name: 'EMEA Masters', src: '/logos/emea_masters.webp', active: false },
   { name: 'First Stand', src: '/logos/first_stand.webp', active: false },
+  { name: 'EWC', src: '/logos/ewc.webp', active: false },
 ];
 
 function Ticker({
@@ -956,7 +960,7 @@ export default function Home() {
               className="mb-5 text-center text-[11px] font-bold tracking-widest uppercase"
               style={{ color: 'rgba(255,255,255,0.2)' }}
             >
-              Supported leagues
+              Supported leagues & tournaments
             </p>
             <Ticker items={LEAGUES_TICKER} speed="30s" />
           </div>
@@ -1328,7 +1332,7 @@ export default function Home() {
                     className="mb-1 flex justify-between text-[10px]"
                     style={{ color: 'rgba(255,255,255,0.25)' }}
                   >
-                    <span>base reward</span>
+                    <span>Base reward</span>
                     <span>3 / 5</span>
                   </div>
                   <div
@@ -1379,7 +1383,7 @@ export default function Home() {
                     className="mb-1 flex justify-between text-[10px]"
                     style={{ color: 'rgba(255,255,255,0.25)' }}
                   >
-                    <span>bonus</span>
+                    <span>Bonus</span>
                     <span>2 / 5</span>
                   </div>
                   <div
@@ -1451,7 +1455,7 @@ export default function Home() {
                     className="mb-1 flex justify-between text-[10px]"
                     style={{ color: 'rgba(255,212,59,0.4)' }}
                   >
-                    <span>full reward</span>
+                    <span>Full reward</span>
                     <span>5 / 5</span>
                   </div>
                   <div
