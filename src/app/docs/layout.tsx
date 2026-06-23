@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       links={[
         {
           text: 'Add to Discord',
-          url: 'https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=139586750592&scope=bot+applications.commands',
+          url: 'https://discord.com/oauth2/authorize?client_id=1498348728078176377&permissions=139586750592&scope=bot+applications.commands',
           external: true,
         },
         {
