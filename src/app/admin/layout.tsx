@@ -1,26 +1,9 @@
 import type { ReactNode } from 'react';
-import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
 import Link from 'next/link';
 
 export const metadata = { title: 'Bananalyz Admin' };
 
-export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const headersList = await headers();
-  const cookie = headersList.get('cookie') ?? '';
-  const isAuthenticated = cookie.includes('admin_session=1');
-
-  const pathname = headersList.get('x-pathname') ?? '';
-  const isLoginPage = pathname.includes('/admin/login');
-
-  if (!isAuthenticated && !isLoginPage) {
-    redirect('/admin/login');
-  }
-
-  if (isLoginPage) {
-    return <>{children}</>;
-  }
-
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#0d0d0d] text-white flex">
       {/* Sidebar */}
