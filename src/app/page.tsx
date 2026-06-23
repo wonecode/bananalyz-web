@@ -701,7 +701,7 @@ const LEAGUES_TICKER = [
   { name: 'LCK', src: '/logos/lck.webp', active: true },
   { name: 'LPL', src: '/logos/lpl.png', active: false },
   { name: 'LFL', src: '/logos/lfl.webp', active: false },
-  { name: 'MSI', src: '/logos/msi.webp', active: false },
+  { name: 'MSI', src: '/logos/msi.webp', active: true },
   { name: 'Worlds', src: '/logos/worlds.png', active: false },
   { name: 'EMEA Masters', src: '/logos/emea_masters.webp', active: false },
   { name: 'First Stand', src: '/logos/first_stand.webp', active: false },
