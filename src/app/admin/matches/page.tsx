@@ -93,16 +93,16 @@ export default async function MatchesPage({
   const finished = matches.filter((m) => m.status === 'FINISHED').length;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-
-      {/* ── Sticky header zone ── */}
+    <>
+      {/* ── Sticky header — fonctionne car scroll est sur <main> dans layout ── */}
       <div style={{
-        position: 'sticky', top: 0, zIndex: 10,
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
         background: '#070809',
         borderBottom: '1px solid rgba(255,255,255,0.055)',
         padding: '20px 36px 0',
       }}>
-        {/* Title + counters */}
         <div style={{ marginBottom: 14 }}>
           <h1 style={{ fontSize: 20, fontWeight: 650, color: '#e8eaed', margin: 0, letterSpacing: '-0.02em' }}>Matchs</h1>
           <p style={{ marginTop: 3, fontSize: 12.5, color: 'rgba(255,255,255,0.28)', margin: '3px 0 0' }}>
@@ -113,7 +113,6 @@ export default async function MatchesPage({
           </p>
         </div>
 
-        {/* Filters */}
         <MatchesFilters
           leagues={leagues}
           currentStatus={status}
@@ -121,7 +120,7 @@ export default async function MatchesPage({
           currentUpcoming={upcoming === 'true'}
         />
 
-        {/* Table column header */}
+        {/* Colonne headers — collées au bas du sticky, raccord avec le tableau */}
         <div style={{
           display: 'grid', gridTemplateColumns: COL,
           padding: '8px 16px',
@@ -137,8 +136,8 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      {/* ── Scrollable rows ── */}
-      <div style={{ padding: '0 36px 36px', flex: 1 }}>
+      {/* ── Rows — flux normal, scroll géré par <main> ── */}
+      <div style={{ padding: '0 36px 36px' }}>
         <div style={{
           background: '#0b0c0e',
           border: '1px solid rgba(255,255,255,0.055)',
@@ -162,16 +161,13 @@ export default async function MatchesPage({
                 padding: '9px 16px',
                 borderBottom: '1px solid rgba(255,255,255,0.032)',
                 alignItems: 'center',
-                transition: 'background 0.1s',
               }}>
-                {/* Match */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
                   <TeamCell team={match.homeTeam} isWinner={homeWon} />
                   <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.13)', fontWeight: 700, flexShrink: 0 }}>VS</span>
                   <TeamCell team={match.awayTeam} isWinner={awayWon} />
                 </div>
 
-                {/* Ligue */}
                 <div>
                   <span style={{
                     fontSize: 10.5, fontWeight: 700, color: lc,
@@ -183,10 +179,8 @@ export default async function MatchesPage({
                   </span>
                 </div>
 
-                {/* Format */}
                 <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
 
-                {/* Status */}
                 <div>
                   <span style={{
                     display: 'inline-flex', alignItems: 'center', gap: 5,
@@ -203,17 +197,14 @@ export default async function MatchesPage({
                   </span>
                 </div>
 
-                {/* Date */}
                 <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>{formatDate(match.beginAt)}</div>
 
-                {/* Score */}
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
                   {hasResult
                     ? `${match.homeScore} – ${match.awayScore}`
                     : <span style={{ color: 'rgba(255,255,255,0.1)' }}>—</span>}
                 </div>
 
-                {/* Predictions */}
                 <div>
                   {match.predictionsCount > 0
                     ? <span style={{ fontSize: 12, fontWeight: 600, color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)' }}>{match.predictionsCount}</span>
@@ -225,6 +216,6 @@ export default async function MatchesPage({
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 }
