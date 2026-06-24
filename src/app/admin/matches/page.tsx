@@ -1,5 +1,6 @@
 import { fetchAdmin } from '@/lib/admin-api';
 import { MatchesFilters } from './matches-filters';
+import Link from 'next/link';
 
 type Team = { id: string; name: string; acronym: string | null; imageUrl: string | null };
 type League = { id: string; name: string; slug: string };
@@ -62,7 +63,6 @@ function TeamCell({ team, isWinner }: { team: Team | null; isWinner: boolean }) 
   );
 }
 
-// match | ligue | phase | format | status | date | score | pred
 const COL = '1.8fr 1.1fr 1.3fr 0.5fr 0.72fr 0.82fr 0.5fr 0.55fr';
 const HEADERS = ['Match', 'Ligue', 'Phase', 'Format', 'Status', 'Date', 'Score', 'Préd.'];
 
@@ -147,98 +147,67 @@ export default async function MatchesPage({
             const homeWon = match.winnerTeam?.id === match.homeTeam?.id;
             const awayWon = match.winnerTeam?.id === match.awayTeam?.id;
             const hasResult = match.homeScore !== null && match.awayScore !== null;
-
-            // Phase : "Spring 2025 · Playoffs" ou juste l'un des deux
             const phase = [match.serieName, match.tournamentName].filter(Boolean).join(' · ');
 
             return (
-              <div key={match.id} style={{
-                display: 'grid', gridTemplateColumns: COL,
-                padding: '9px 16px',
-                borderBottom: '1px solid rgba(255,255,255,0.032)',
-                alignItems: 'center',
-              }}>
-                {/* Match */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
-                  <TeamCell team={match.homeTeam} isWinner={homeWon} />
-                  <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.13)', fontWeight: 700, flexShrink: 0 }}>VS</span>
-                  <TeamCell team={match.awayTeam} isWinner={awayWon} />
-                </div>
-
-                {/* Ligue */}
-                <div>
-                  <span style={{
-                    fontSize: 10.5, fontWeight: 700, color: lc,
-                    background: `${lc}15`, border: `1px solid ${lc}28`,
-                    padding: '2px 7px', borderRadius: 5, letterSpacing: '0.03em',
-                    whiteSpace: 'nowrap',
-                  }}>
-                    {match.league.name}
-                  </span>
-                </div>
-
-                {/* Phase */}
-                <div style={{ minWidth: 0 }}>
-                  {phase ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                      {match.serieName && (
-                        <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {match.serieName}
-                        </span>
-                      )}
-                      {match.tournamentName && (
-                        <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {match.tournamentName}
-                        </span>
-                      )}
-                    </div>
-                  ) : (
-                    <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>
-                  )}
-                </div>
-
-                {/* Format */}
-                <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
-
-                {/* Status */}
-                <div>
-                  <span style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 5,
-                    fontSize: 10.5, padding: '2px 7px', borderRadius: 20,
-                    background: sm.bg, color: sm.color, border: `1px solid ${sm.border}`,
-                    whiteSpace: 'nowrap',
-                  }}>
+              <Link key={match.id} href={`/admin/matches/${match.id}`} style={{ textDecoration: 'none', display: 'contents' }}>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: COL,
+                  padding: '9px 16px',
+                  borderBottom: '1px solid rgba(255,255,255,0.032)',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  transition: 'background 0.12s',
+                }} className="match-row">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
+                    <TeamCell team={match.homeTeam} isWinner={homeWon} />
+                    <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.13)', fontWeight: 700, flexShrink: 0 }}>VS</span>
+                    <TeamCell team={match.awayTeam} isWinner={awayWon} />
+                  </div>
+                  <div>
                     <span style={{
-                      width: 5, height: 5, borderRadius: '50%',
-                      background: sm.dot, flexShrink: 0,
-                      ...(match.status === 'RUNNING' ? { boxShadow: '0 0 5px #34d399' } : {})
-                    }} />
-                    {sm.label}
-                  </span>
+                      fontSize: 10.5, fontWeight: 700, color: lc,
+                      background: `${lc}15`, border: `1px solid ${lc}28`,
+                      padding: '2px 7px', borderRadius: 5, letterSpacing: '0.03em', whiteSpace: 'nowrap',
+                    }}>{match.league.name}</span>
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    {phase ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                        {match.serieName && <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{match.serieName}</span>}
+                        {match.tournamentName && <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{match.tournamentName}</span>}
+                      </div>
+                    ) : <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>}
+                  </div>
+                  <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
+                  <div>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 5,
+                      fontSize: 10.5, padding: '2px 7px', borderRadius: 20,
+                      background: sm.bg, color: sm.color, border: `1px solid ${sm.border}`, whiteSpace: 'nowrap',
+                    }}>
+                      <span style={{ width: 5, height: 5, borderRadius: '50%', background: sm.dot, flexShrink: 0,
+                        ...(match.status === 'RUNNING' ? { boxShadow: '0 0 5px #34d399' } : {}) }} />
+                      {sm.label}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>{formatDate(match.beginAt)}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
+                    {hasResult ? `${match.homeScore} – ${match.awayScore}` : <span style={{ color: 'rgba(255,255,255,0.1)' }}>—</span>}
+                  </div>
+                  <div>
+                    {match.predictionsCount > 0
+                      ? <span style={{ fontSize: 12, fontWeight: 600, color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)' }}>{match.predictionsCount}</span>
+                      : <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>}
+                  </div>
                 </div>
-
-                {/* Date */}
-                <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>{formatDate(match.beginAt)}</div>
-
-                {/* Score */}
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
-                  {hasResult
-                    ? `${match.homeScore} – ${match.awayScore}`
-                    : <span style={{ color: 'rgba(255,255,255,0.1)' }}>—</span>}
-                </div>
-
-                {/* Predictions */}
-                <div>
-                  {match.predictionsCount > 0
-                    ? <span style={{ fontSize: 12, fontWeight: 600, color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)' }}>{match.predictionsCount}</span>
-                    : <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>
-                  }
-                </div>
-              </div>
+              </Link>
             );
           })}
         </div>
       </div>
+
+      <style>{`.match-row:hover { background: rgba(255,255,255,0.025) !important; }`}</style>
     </>
   );
 }
