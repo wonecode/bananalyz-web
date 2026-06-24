@@ -83,6 +83,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
         .pred-row:hover { background: rgba(255,255,255,0.022) !important; }
         @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
         .live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+        .stat-label { font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.22); }
       `}</style>
 
       {/* ── Sticky header ── */}
@@ -145,18 +146,15 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           border: '1px solid rgba(255,255,255,0.07)',
           borderRadius: 14, overflow: 'hidden', position: 'relative',
         }}>
-          {/* Top line glow */}
           <div style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 1,
             background: `linear-gradient(90deg, transparent 0%, ${lc}70 50%, transparent 100%)`,
           }} />
-          {/* Ambient radial */}
           <div style={{
             position: 'absolute', inset: 0, pointerEvents: 'none',
             background: `radial-gradient(ellipse 70% 50% at 50% 0%, ${lc}09 0%, transparent 70%)`,
           }} />
 
-          {/* Meta bar */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: 8, padding: '11px 20px',
             borderBottom: '1px solid rgba(255,255,255,0.045)', position: 'relative',
@@ -187,7 +185,6 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
             </div>
           </div>
 
-          {/* Teams + score */}
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr auto 1fr',
             alignItems: 'center', padding: '28px 32px', position: 'relative',
@@ -259,65 +256,97 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           </div>
         </div>
 
-        {/* ── Stats row ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
-          {[
-            { label: 'Prédictions', value: String(match.stats.totalPredictions), sub: null, color: '#e8eaed',
-              icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-            { label: `Votes ${match.homeTeam?.acronym ?? 'Home'}`, value: String(match.stats.homeVotes), sub: `${hp}%`, color: '#5aa9ff',
-              icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> },
-            { label: `Votes ${match.awayTeam?.acronym ?? 'Away'}`, value: String(match.stats.awayVotes), sub: `${ap}%`, color: '#f472b6',
-              icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> },
-            { label: 'Points distribués', value: String(match.stats.pointsDistributed), sub: null, color: '#ffc400',
-              icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
-          ].map((s) => (
-            <div key={s.label} style={{
-              background: '#0c0d0f', border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 12, padding: '16px 18px',
-              display: 'flex', flexDirection: 'column', gap: 10,
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600 }}>{s.label}</span>
-                <span style={{ color: 'rgba(255,255,255,0.14)' }}>{s.icon}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                <span style={{ fontSize: 28, fontWeight: 750, color: s.color, letterSpacing: '-0.03em', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>{s.value}</span>
-                {s.sub && <span style={{ fontSize: 13, color: `${s.color}80`, fontWeight: 600 }}>{s.sub}</span>}
-              </div>
+        {/* ── Stats + votes unified block ── */}
+        <div style={{
+          background: '#0c0d0f',
+          border: '1px solid rgba(255,255,255,0.07)',
+          borderRadius: 14, overflow: 'hidden',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1px 3fr 1px 1fr',
+        }}>
+          {/* Chip : Prédictions */}
+          <div style={{ padding: '20px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span className="stat-label">Prédictions</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-          ))}
-        </div>
+            <span style={{ fontSize: 32, fontWeight: 750, color: '#e8eaed', letterSpacing: '-0.04em', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
+              {match.stats.totalPredictions}
+            </span>
+          </div>
 
-        {/* ── Vote bar ── */}
-        {match.stats.totalPredictions > 0 && (
-          <div style={{ background: '#0c0d0f', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '16px 18px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          {/* Divider */}
+          <div style={{ background: 'rgba(255,255,255,0.05)', margin: '16px 0' }} />
+
+          {/* Votes : home + bar + away */}
+          <div style={{ padding: '20px 28px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <span className="stat-label">Répartition des votes</span>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 14 }}>
+              {/* Home votes */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 {match.homeTeam?.imageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={match.homeTeam.imageUrl} alt="" width={16} height={16} style={{ objectFit: 'contain' }} />
+                  <img src={match.homeTeam.imageUrl} alt="" width={24} height={24} style={{ objectFit: 'contain', flexShrink: 0 }} />
                 )}
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#5aa9ff' }}>{match.homeTeam?.acronym}</span>
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#5aa9ff' }}>{hp}%</span>
+                <div>
+                  <div style={{ fontSize: 10.5, fontWeight: 600, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 2 }}>
+                    {match.homeTeam?.acronym}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
+                    <span style={{ fontSize: 28, fontWeight: 750, color: '#5aa9ff', letterSpacing: '-0.03em', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>
+                      {match.stats.homeVotes}
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(90,169,255,0.45)' }}>{hp}%</span>
+                  </div>
+                </div>
               </div>
-              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.18)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>Votes</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#f472b6' }}>{ap}%</span>
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#f472b6' }}>{match.awayTeam?.acronym}</span>
+
+              {/* Bar */}
+              <div style={{ flex: 1, minWidth: 100 }}>
+                <div style={{ height: 5, borderRadius: 99, overflow: 'hidden', background: 'rgba(255,255,255,0.05)', position: 'relative', width: '100%' }}>
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: `linear-gradient(90deg, #5aa9ff 0%, #5aa9ff ${hp}%, rgba(255,255,255,0.06) ${hp}%, rgba(255,255,255,0.06) ${100 - ap}%, #f472b6 ${100 - ap}%, #f472b6 100%)`,
+                  }} />
+                </div>
+              </div>
+
+              {/* Away votes */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'flex-end' }}>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: 10.5, fontWeight: 600, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 2 }}>
+                    {match.awayTeam?.acronym}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 5, justifyContent: 'flex-end' }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,114,182,0.45)' }}>{ap}%</span>
+                    <span style={{ fontSize: 28, fontWeight: 750, color: '#f472b6', letterSpacing: '-0.03em', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>
+                      {match.stats.awayVotes}
+                    </span>
+                  </div>
+                </div>
                 {match.awayTeam?.imageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={match.awayTeam.imageUrl} alt="" width={16} height={16} style={{ objectFit: 'contain' }} />
+                  <img src={match.awayTeam.imageUrl} alt="" width={24} height={24} style={{ objectFit: 'contain', flexShrink: 0 }} />
                 )}
               </div>
             </div>
-            <div style={{ height: 8, borderRadius: 99, overflow: 'hidden', background: 'rgba(255,255,255,0.05)', position: 'relative' }}>
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: `linear-gradient(90deg, #5aa9ff 0%, #5aa9ff ${hp}%, #f472b6 ${hp}%, #f472b6 100%)`,
-              }} />
-            </div>
           </div>
-        )}
+
+          {/* Divider */}
+          <div style={{ background: 'rgba(255,255,255,0.05)', margin: '16px 0' }} />
+
+          {/* Chip : Points */}
+          <div style={{ padding: '20px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span className="stat-label">Points distribués</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span style={{ fontSize: 32, fontWeight: 750, color: '#ffc400', letterSpacing: '-0.04em', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
+              {match.stats.pointsDistributed}
+            </span>
+          </div>
+        </div>
 
         {/* ── Predictions table ── */}
         {match.predictions.length > 0 && (
@@ -363,7 +392,6 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
                   alignItems: 'center',
                   background: perfect ? 'rgba(255,196,0,0.025)' : 'transparent',
                 }}>
-                  {/* User */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <div style={{
                       width: 26, height: 26, borderRadius: 7, flexShrink: 0,
@@ -385,7 +413,6 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
                     )}
                   </div>
 
-                  {/* Winner */}
                   <div>
                     <span style={{
                       fontSize: 11.5, fontWeight: 700, color: wc,
@@ -400,12 +427,10 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
                     </span>
                   </div>
 
-                  {/* Score */}
                   <div style={{ fontSize: 13, fontWeight: 650, color: 'rgba(255,255,255,0.38)', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.01em' }}>
                     {p.predictedHomeScore} <span style={{ color: 'rgba(255,255,255,0.14)' }}>–</span> {p.predictedAwayScore}
                   </div>
 
-                  {/* Points */}
                   <div>
                     {pts != null ? (
                       <span style={{
