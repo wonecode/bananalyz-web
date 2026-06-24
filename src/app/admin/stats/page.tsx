@@ -43,7 +43,11 @@ function lc(slug: string) {
 }
 
 function pct(n: number) {
-  return `${Math.round(n * 10) / 10}%`;
+  return `${Math.round((n ?? 0) * 10) / 10}%`;
+}
+
+function num(n: number | undefined | null) {
+  return (n ?? 0).toLocaleString('fr-FR');
 }
 
 export default async function StatsPage() {
@@ -89,7 +93,7 @@ export default async function StatsPage() {
     {
       label: 'Points distribués',
       value: stats.points.totalDistributed,
-      sub: `Moy. ${Math.round(stats.predictions.avgPointsPerUser * 10) / 10} pts/user`,
+      sub: `Moy. ${Math.round((stats.predictions.avgPointsPerUser ?? 0) * 10) / 10} pts/user`,
       icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
       color: '#34d399',
     },
@@ -161,7 +165,7 @@ export default async function StatsPage() {
               </div>
               <div>
                 <div style={{ fontSize: 34, fontWeight: 750, color: k.color, letterSpacing: '-0.04em', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>
-                  {k.value.toLocaleString('fr-FR')}
+                  {(k.value ?? 0).toLocaleString('fr-FR')}
                 </div>
                 <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.28)', marginTop: 6 }}>{k.sub}</div>
               </div>
@@ -182,7 +186,7 @@ export default async function StatsPage() {
               <span style={{ fontSize: 12, fontWeight: 650, color: 'rgba(255,255,255,0.55)', letterSpacing: '-0.01em' }}>Top scoreurs</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
-            {stats.points.topScorers.map((s, i) => {
+            {(stats.points.topScorers ?? []).map((s, i) => {
               const podiumColors = ['#ffc400', 'rgba(255,255,255,0.45)', '#fb923c'];
               const rankColor = podiumColors[i] ?? 'rgba(255,255,255,0.15)';
               const name = s.username ?? s.discordId;
@@ -206,7 +210,7 @@ export default async function StatsPage() {
                     <span style={{ fontSize: 12.5, fontWeight: 500, color: 'rgba(255,255,255,0.6)' }}>{name}</span>
                   </div>
                   <span style={{ fontSize: 14, fontWeight: 750, color: '#ffc400', fontVariantNumeric: 'tabular-nums' }}>
-                    {s.totalPoints.toLocaleString('fr-FR')}
+                    {num(s.totalPoints)}
                     <span style={{ fontSize: 10, fontWeight: 500, color: 'rgba(255,196,0,0.45)', marginLeft: 3 }}>pts</span>
                   </span>
                 </div>
@@ -214,7 +218,7 @@ export default async function StatsPage() {
             })}
           </div>
 
-          {/* Ligues — enrichies */}
+          {/* Ligues enrichies */}
           <div style={{ background: '#0c0d0f', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{
               padding: '13px 18px',
@@ -224,10 +228,10 @@ export default async function StatsPage() {
               <span style={{ fontSize: 12, fontWeight: 650, color: 'rgba(255,255,255,0.55)', letterSpacing: '-0.01em' }}>Activité par ligue</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
             </div>
-            {stats.leagues.map((league, i) => {
+            {(stats.leagues ?? []).map((league, i) => {
               const color = lc(league.slug);
-              const maxPreds = Math.max(...stats.leagues.map(l => l.predictionCount), 1);
-              const barWidth = Math.round((league.predictionCount / maxPreds) * 100);
+              const maxPreds = Math.max(...(stats.leagues ?? []).map(l => l.predictionCount ?? 0), 1);
+              const barWidth = Math.round(((league.predictionCount ?? 0) / maxPreds) * 100);
               return (
                 <div key={league.slug} className="league-row" style={{
                   padding: '10px 18px',
@@ -242,10 +246,10 @@ export default async function StatsPage() {
                     }}>{league.name}</span>
                     <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                       <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.22)', fontVariantNumeric: 'tabular-nums' }}>
-                        {league.matchCount} matchs
+                        {league.matchCount ?? 0} matchs
                       </span>
                       <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.42)', fontVariantNumeric: 'tabular-nums' }}>
-                        {league.predictionCount.toLocaleString('fr-FR')} préd.
+                        {num(league.predictionCount)} préd.
                       </span>
                     </div>
                   </div>
@@ -259,7 +263,7 @@ export default async function StatsPage() {
                     </span>
                     <span style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
                     <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.3)' }}>
-                      <span style={{ color: '#34d399', fontWeight: 600 }}>{league.pointsDistributed.toLocaleString('fr-FR')}</span> pts
+                      <span style={{ color: '#34d399', fontWeight: 600 }}>{num(league.pointsDistributed)}</span> pts
                     </span>
                   </div>
                   <div style={{ height: 3, borderRadius: 99, background: 'rgba(255,255,255,0.05)', overflow: 'hidden' }}>
@@ -282,8 +286,9 @@ export default async function StatsPage() {
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           </div>
 
-          {stats.leaguesByPhase.map((league, li) => {
+          {(stats.leaguesByPhase ?? []).map((league, li) => {
             const color = lc(league.slug);
+            const totalPreds = (league.phases ?? []).reduce((s, p) => s + (p.predictionCount ?? 0), 0);
             return (
               <details key={league.slug} style={{
                 borderBottom: li < stats.leaguesByPhase.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
@@ -303,16 +308,15 @@ export default async function StatsPage() {
                       background: `${color}18`, border: `1px solid ${color}30`,
                       padding: '1px 7px', borderRadius: 5, letterSpacing: '0.03em',
                     }}>{league.name}</span>
-                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)' }}>{league.phases.length} phase{league.phases.length > 1 ? 's' : ''}</span>
+                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)' }}>{(league.phases ?? []).length} phase{(league.phases ?? []).length > 1 ? 's' : ''}</span>
                   </div>
                   <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.18)', fontVariantNumeric: 'tabular-nums' }}>
-                    {league.phases.reduce((s, p) => s + p.predictionCount, 0).toLocaleString('fr-FR')} préd. au total
+                    {num(totalPreds)} préd. au total
                   </span>
                 </summary>
 
                 {/* Phases table */}
                 <div style={{ padding: '0 18px 10px' }}>
-                  {/* Header */}
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 80px 80px 70px 70px 90px',
@@ -324,7 +328,7 @@ export default async function StatsPage() {
                     ))}
                   </div>
 
-                  {league.phases.map((phase, pi) => (
+                  {(league.phases ?? []).map((phase, pi) => (
                     <div key={phase.serieName} className="phase-row" style={{
                       display: 'grid',
                       gridTemplateColumns: '1fr 80px 80px 70px 70px 90px',
@@ -334,11 +338,11 @@ export default async function StatsPage() {
                       borderTop: pi > 0 ? '1px solid rgba(255,255,255,0.03)' : 'none',
                     }}>
                       <span style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.6)' }}>{phase.serieName}</span>
-                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.matchCount}</span>
-                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.predictionCount.toLocaleString('fr-FR')}</span>
+                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.matchCount ?? 0}</span>
+                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{num(phase.predictionCount)}</span>
                       <span style={{ fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,0.55)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{pct(phase.accuracyRate)}</span>
                       <span style={{ fontSize: 11.5, fontWeight: 600, color: '#ffc400', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{pct(phase.perfectRate)}</span>
-                      <span style={{ fontSize: 11.5, fontWeight: 650, color: '#34d399', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.pointsDistributed.toLocaleString('fr-FR')}</span>
+                      <span style={{ fontSize: 11.5, fontWeight: 650, color: '#34d399', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{num(phase.pointsDistributed)}</span>
                     </div>
                   ))}
                 </div>
