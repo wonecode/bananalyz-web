@@ -47,28 +47,22 @@ function formatDate(iso: string) {
   }).format(new Date(iso));
 }
 
-function TeamCell({ team, score, isWinner }: { team: Team | null; score: number | null; isWinner: boolean }) {
+function TeamCell({ team, isWinner }: { team: Team | null; isWinner: boolean }) {
   if (!team) return <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: 12 }}>TBD</span>;
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
       {team.imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={team.imageUrl} alt={team.name} width={18} height={18} style={{ objectFit: 'contain', borderRadius: 3 }} />
+        <img src={team.imageUrl} alt={team.name} width={16} height={16} style={{ objectFit: 'contain', borderRadius: 3, opacity: isWinner ? 1 : 0.5 }} />
       )}
-      <span style={{
-        fontSize: 12.5, fontWeight: isWinner ? 700 : 500,
-        color: isWinner ? '#e8eaed' : 'rgba(255,255,255,0.45)',
-      }}>
+      <span style={{ fontSize: 12.5, fontWeight: isWinner ? 700 : 500, color: isWinner ? '#e8eaed' : 'rgba(255,255,255,0.35)' }}>
         {team.acronym ?? team.name}
       </span>
-      {score !== null && (
-        <span style={{ fontSize: 12, fontWeight: 700, color: isWinner ? '#e8eaed' : 'rgba(255,255,255,0.3)' }}>
-          {score}
-        </span>
-      )}
     </div>
   );
 }
+
+const COL = '2fr 1.4fr 0.55fr 0.75fr 0.85fr 0.55fr 0.65fr';
 
 export default async function MatchesPage({
   searchParams,
@@ -98,13 +92,18 @@ export default async function MatchesPage({
   const upcoming2 = matches.filter((m) => m.status === 'NOT_STARTED').length;
   const finished = matches.filter((m) => m.status === 'FINISHED').length;
 
-  const COL = '2fr 1.4fr 0.7fr 0.7fr 0.8fr 0.7fr 0.7fr';
-
   return (
-    <div style={{ padding: '32px 36px' }}>
-      {/* Header */}
-      <div style={{ marginBottom: 24, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-        <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+
+      {/* ── Sticky header zone ── */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 10,
+        background: '#070809',
+        borderBottom: '1px solid rgba(255,255,255,0.055)',
+        padding: '20px 36px 0',
+      }}>
+        {/* Title + counters */}
+        <div style={{ marginBottom: 14 }}>
           <h1 style={{ fontSize: 20, fontWeight: 650, color: '#e8eaed', margin: 0, letterSpacing: '-0.02em' }}>Matchs</h1>
           <p style={{ marginTop: 3, fontSize: 12.5, color: 'rgba(255,255,255,0.28)', margin: '3px 0 0' }}>
             {matchData?.total ?? 0} résultats
@@ -113,102 +112,118 @@ export default async function MatchesPage({
             {finished > 0 && <span style={{ color: 'rgba(255,255,255,0.2)', marginLeft: 8 }}>· {finished} terminés</span>}
           </p>
         </div>
-      </div>
 
-      {/* Filters */}
-      <MatchesFilters leagues={leagues} currentStatus={status} currentSlug={slug} currentUpcoming={upcoming === 'true'} />
+        {/* Filters */}
+        <MatchesFilters
+          leagues={leagues}
+          currentStatus={status}
+          currentSlug={slug}
+          currentUpcoming={upcoming === 'true'}
+        />
 
-      {/* Table */}
-      <div style={{ background: '#0b0c0e', border: '1px solid rgba(255,255,255,0.055)', borderRadius: 10, overflow: 'hidden' }}>
-        {/* Header */}
+        {/* Table column header */}
         <div style={{
           display: 'grid', gridTemplateColumns: COL,
-          padding: '9px 16px',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
+          padding: '8px 16px',
+          marginTop: 4,
           background: 'rgba(255,255,255,0.018)',
+          borderRadius: '8px 8px 0 0',
+          border: '1px solid rgba(255,255,255,0.055)',
+          borderBottom: 'none',
         }}>
-          {['Match', 'Ligue', 'Format', 'Status', 'Date', 'Score', 'Prédictions'].map((h) => (
+          {['Match', 'Ligue', 'Format', 'Status', 'Date', 'Score', 'Préd.'].map((h) => (
             <div key={h} style={{ fontSize: 10.5, fontWeight: 600, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.07em', textTransform: 'uppercase' }}>{h}</div>
           ))}
         </div>
+      </div>
 
-        {/* Rows */}
-        {matches.length === 0 && (
-          <div style={{ padding: '56px 16px', textAlign: 'center', color: 'rgba(255,255,255,0.15)', fontSize: 13 }}>Aucun match trouvé.</div>
-        )}
-        {matches.map((match) => {
-          const sm = STATUS_META[match.status];
-          const lc = leagueColor(match.league.slug);
-          const homeWon = match.winnerTeam?.id === match.homeTeam?.id;
-          const awayWon = match.winnerTeam?.id === match.awayTeam?.id;
+      {/* ── Scrollable rows ── */}
+      <div style={{ padding: '0 36px 36px', flex: 1 }}>
+        <div style={{
+          background: '#0b0c0e',
+          border: '1px solid rgba(255,255,255,0.055)',
+          borderTop: 'none',
+          borderRadius: '0 0 10px 10px',
+          overflow: 'hidden',
+        }}>
+          {matches.length === 0 && (
+            <div style={{ padding: '56px 16px', textAlign: 'center', color: 'rgba(255,255,255,0.15)', fontSize: 13 }}>Aucun match trouvé.</div>
+          )}
+          {matches.map((match) => {
+            const sm = STATUS_META[match.status];
+            const lc = leagueColor(match.league.slug);
+            const homeWon = match.winnerTeam?.id === match.homeTeam?.id;
+            const awayWon = match.winnerTeam?.id === match.awayTeam?.id;
+            const hasResult = match.homeScore !== null && match.awayScore !== null;
 
-          return (
-            <div key={match.id} style={{
-              display: 'grid', gridTemplateColumns: COL,
-              padding: '10px 16px',
-              borderBottom: '1px solid rgba(255,255,255,0.038)',
-              alignItems: 'center',
-            }}>
-              {/* Match: home vs away */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                <TeamCell team={match.homeTeam} score={null} isWinner={homeWon} />
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.15)', fontWeight: 600 }}>VS</span>
-                <TeamCell team={match.awayTeam} score={null} isWinner={awayWon} />
-              </div>
+            return (
+              <div key={match.id} style={{
+                display: 'grid', gridTemplateColumns: COL,
+                padding: '9px 16px',
+                borderBottom: '1px solid rgba(255,255,255,0.032)',
+                alignItems: 'center',
+                transition: 'background 0.1s',
+              }}>
+                {/* Match */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
+                  <TeamCell team={match.homeTeam} isWinner={homeWon} />
+                  <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.13)', fontWeight: 700, flexShrink: 0 }}>VS</span>
+                  <TeamCell team={match.awayTeam} isWinner={awayWon} />
+                </div>
 
-              {/* Ligue */}
-              <div>
-                <span style={{
-                  fontSize: 10.5, fontWeight: 700, color: lc,
-                  background: `${lc}15`, border: `1px solid ${lc}28`,
-                  padding: '2px 7px', borderRadius: 5, letterSpacing: '0.03em',
-                }}>
-                  {match.league.name}
-                </span>
-              </div>
-
-              {/* Format */}
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
-
-              {/* Status */}
-              <div>
-                <span style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 5,
-                  fontSize: 11, padding: '2px 7px', borderRadius: 20,
-                  background: sm.bg, color: sm.color, border: `1px solid ${sm.border}`,
-                }}>
-                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: sm.dot, flexShrink: 0,
-                    ...(match.status === 'RUNNING' ? { boxShadow: '0 0 5px #34d399' } : {}) }} />
-                  {sm.label}
-                </span>
-              </div>
-
-              {/* Date */}
-              <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)' }}>{formatDate(match.beginAt)}</div>
-
-              {/* Score */}
-              <div style={{ fontSize: 12.5, fontWeight: 700, color: 'rgba(255,255,255,0.45)', fontVariantNumeric: 'tabular-nums' }}>
-                {match.homeScore !== null && match.awayScore !== null
-                  ? `${match.homeScore} – ${match.awayScore}`
-                  : <span style={{ color: 'rgba(255,255,255,0.12)' }}>—</span>}
-              </div>
-
-              {/* Predictions */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                {match.predictionsCount > 0 ? (
+                {/* Ligue */}
+                <div>
                   <span style={{
-                    fontSize: 12, fontWeight: 600,
-                    color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)',
+                    fontSize: 10.5, fontWeight: 700, color: lc,
+                    background: `${lc}15`, border: `1px solid ${lc}28`,
+                    padding: '2px 7px', borderRadius: 5, letterSpacing: '0.03em',
+                    whiteSpace: 'nowrap',
                   }}>
-                    {match.predictionsCount}
+                    {match.league.name}
                   </span>
-                ) : (
-                  <span style={{ color: 'rgba(255,255,255,0.12)', fontSize: 12 }}>—</span>
-                )}
+                </div>
+
+                {/* Format */}
+                <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
+
+                {/* Status */}
+                <div>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 5,
+                    fontSize: 10.5, padding: '2px 7px', borderRadius: 20,
+                    background: sm.bg, color: sm.color, border: `1px solid ${sm.border}`,
+                    whiteSpace: 'nowrap',
+                  }}>
+                    <span style={{
+                      width: 5, height: 5, borderRadius: '50%',
+                      background: sm.dot, flexShrink: 0,
+                      ...(match.status === 'RUNNING' ? { boxShadow: '0 0 5px #34d399' } : {})
+                    }} />
+                    {sm.label}
+                  </span>
+                </div>
+
+                {/* Date */}
+                <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>{formatDate(match.beginAt)}</div>
+
+                {/* Score */}
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
+                  {hasResult
+                    ? `${match.homeScore} – ${match.awayScore}`
+                    : <span style={{ color: 'rgba(255,255,255,0.1)' }}>—</span>}
+                </div>
+
+                {/* Predictions */}
+                <div>
+                  {match.predictionsCount > 0
+                    ? <span style={{ fontSize: 12, fontWeight: 600, color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)' }}>{match.predictionsCount}</span>
+                    : <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>
+                  }
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
