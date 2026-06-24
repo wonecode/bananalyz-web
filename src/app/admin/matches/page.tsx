@@ -62,7 +62,9 @@ function TeamCell({ team, isWinner }: { team: Team | null; isWinner: boolean }) 
   );
 }
 
-const COL = '2fr 1.4fr 0.55fr 0.75fr 0.85fr 0.55fr 0.65fr';
+// match | ligue | phase | format | status | date | score | pred
+const COL = '1.8fr 1.1fr 1.3fr 0.5fr 0.72fr 0.82fr 0.5fr 0.55fr';
+const HEADERS = ['Match', 'Ligue', 'Phase', 'Format', 'Status', 'Date', 'Score', 'Préd.'];
 
 export default async function MatchesPage({
   searchParams,
@@ -94,11 +96,9 @@ export default async function MatchesPage({
 
   return (
     <>
-      {/* ── Sticky header — fonctionne car scroll est sur <main> dans layout ── */}
+      {/* ── Sticky header ── */}
       <div style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 10,
+        position: 'sticky', top: 0, zIndex: 10,
         background: '#070809',
         borderBottom: '1px solid rgba(255,255,255,0.055)',
         padding: '20px 36px 0',
@@ -113,30 +113,23 @@ export default async function MatchesPage({
           </p>
         </div>
 
-        <MatchesFilters
-          leagues={leagues}
-          currentStatus={status}
-          currentSlug={slug}
-          currentUpcoming={upcoming === 'true'}
-        />
+        <MatchesFilters leagues={leagues} currentStatus={status} currentSlug={slug} currentUpcoming={upcoming === 'true'} />
 
-        {/* Colonne headers — collées au bas du sticky, raccord avec le tableau */}
         <div style={{
           display: 'grid', gridTemplateColumns: COL,
-          padding: '8px 16px',
-          marginTop: 4,
+          padding: '8px 16px', marginTop: 4,
           background: 'rgba(255,255,255,0.018)',
           borderRadius: '8px 8px 0 0',
           border: '1px solid rgba(255,255,255,0.055)',
           borderBottom: 'none',
         }}>
-          {['Match', 'Ligue', 'Format', 'Status', 'Date', 'Score', 'Préd.'].map((h) => (
+          {HEADERS.map((h) => (
             <div key={h} style={{ fontSize: 10.5, fontWeight: 600, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.07em', textTransform: 'uppercase' }}>{h}</div>
           ))}
         </div>
       </div>
 
-      {/* ── Rows — flux normal, scroll géré par <main> ── */}
+      {/* ── Rows ── */}
       <div style={{ padding: '0 36px 36px' }}>
         <div style={{
           background: '#0b0c0e',
@@ -155,6 +148,9 @@ export default async function MatchesPage({
             const awayWon = match.winnerTeam?.id === match.awayTeam?.id;
             const hasResult = match.homeScore !== null && match.awayScore !== null;
 
+            // Phase : "Spring 2025 · Playoffs" ou juste l'un des deux
+            const phase = [match.serieName, match.tournamentName].filter(Boolean).join(' · ');
+
             return (
               <div key={match.id} style={{
                 display: 'grid', gridTemplateColumns: COL,
@@ -162,12 +158,14 @@ export default async function MatchesPage({
                 borderBottom: '1px solid rgba(255,255,255,0.032)',
                 alignItems: 'center',
               }}>
+                {/* Match */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
                   <TeamCell team={match.homeTeam} isWinner={homeWon} />
                   <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.13)', fontWeight: 700, flexShrink: 0 }}>VS</span>
                   <TeamCell team={match.awayTeam} isWinner={awayWon} />
                 </div>
 
+                {/* Ligue */}
                 <div>
                   <span style={{
                     fontSize: 10.5, fontWeight: 700, color: lc,
@@ -179,8 +177,30 @@ export default async function MatchesPage({
                   </span>
                 </div>
 
+                {/* Phase */}
+                <div style={{ minWidth: 0 }}>
+                  {phase ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      {match.serieName && (
+                        <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {match.serieName}
+                        </span>
+                      )}
+                      {match.tournamentName && (
+                        <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {match.tournamentName}
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <span style={{ color: 'rgba(255,255,255,0.1)', fontSize: 12 }}>—</span>
+                  )}
+                </div>
+
+                {/* Format */}
                 <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{match.format}</div>
 
+                {/* Status */}
                 <div>
                   <span style={{
                     display: 'inline-flex', alignItems: 'center', gap: 5,
@@ -197,14 +217,17 @@ export default async function MatchesPage({
                   </span>
                 </div>
 
+                {/* Date */}
                 <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>{formatDate(match.beginAt)}</div>
 
+                {/* Score */}
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
                   {hasResult
                     ? `${match.homeScore} – ${match.awayScore}`
                     : <span style={{ color: 'rgba(255,255,255,0.1)' }}>—</span>}
                 </div>
 
+                {/* Predictions */}
                 <div>
                   {match.predictionsCount > 0
                     ? <span style={{ fontSize: 12, fontWeight: 600, color: match.predictionsCount > 10 ? '#a78bfa' : 'rgba(255,255,255,0.35)' }}>{match.predictionsCount}</span>
