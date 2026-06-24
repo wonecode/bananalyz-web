@@ -1,35 +1,35 @@
 import { fetchAdmin } from '@/lib/admin-api';
 
+type PhaseStats = {
+  serieName: string;
+  matchCount: number;
+  predictionCount: number;
+  correctCount: number;
+  perfectCount: number;
+  pointsDistributed: number;
+  accuracyRate: number;
+  perfectRate: number;
+};
+
+type LeagueStats = {
+  name: string;
+  slug: string;
+  matchCount: number;
+  predictionCount: number;
+  correctCount: number;
+  perfectCount: number;
+  pointsDistributed: number;
+  accuracyRate: number;
+  perfectRate: number;
+};
+
 type Stats = {
-  users: {
-    total: number;
-    active: number;
-  };
-  matches: {
-    total: number;
-    finished: number;
-    running: number;
-    notStarted: number;
-    cancelled: number;
-  };
-  predictions: {
-    total: number;
-    correct: number;
-    perfect: number;
-    accuracyRate: number;
-    perfectRate: number;
-    avgPointsPerUser: number;
-  };
-  points: {
-    totalDistributed: number;
-    topScorers: { username: string | null; discordId: string; totalPoints: number }[];
-  };
-  leagues: {
-    name: string;
-    slug: string;
-    matchCount: number;
-    predictionCount: number;
-  }[];
+  users: { total: number; active: number };
+  matches: { total: number; finished: number; running: number; notStarted: number; cancelled: number };
+  predictions: { total: number; correct: number; perfect: number; accuracyRate: number; perfectRate: number; avgPointsPerUser: number };
+  points: { totalDistributed: number; topScorers: { username: string | null; discordId: string; totalPoints: number }[] };
+  leagues: LeagueStats[];
+  leaguesByPhase: { name: string; slug: string; phases: PhaseStats[] }[];
 };
 
 const LEAGUE_COLORS: Record<string, string> = {
@@ -75,7 +75,7 @@ export default async function StatsPage() {
     {
       label: 'Prédictions',
       value: stats.predictions.total,
-      sub: `Taux correct : ${pct(stats.predictions.accuracyRate)}`,
+      sub: `Taux correct : ${pct(stats.predictions.accuracyRate)}`,
       icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
       color: '#e8eaed',
     },
@@ -89,7 +89,7 @@ export default async function StatsPage() {
     {
       label: 'Points distribués',
       value: stats.points.totalDistributed,
-      sub: `Moy. ${Math.round(stats.predictions.avgPointsPerUser * 10) / 10} pts/user`,
+      sub: `Moy. ${Math.round(stats.predictions.avgPointsPerUser * 10) / 10} pts/user`,
       icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
       color: '#34d399',
     },
@@ -108,8 +108,13 @@ export default async function StatsPage() {
         .kpi-card:hover { background: #111214 !important; }
         .scorer-row:hover { background: rgba(255,255,255,0.022) !important; }
         .league-row:hover { background: rgba(255,255,255,0.022) !important; }
+        .phase-row:hover { background: rgba(255,255,255,0.018) !important; }
         @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
         .live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .chevron { transform: rotate(90deg); }
+        .chevron { transition: transform 180ms cubic-bezier(0.16,1,0.3,1); }
       `}</style>
 
       {/* Header */}
@@ -209,7 +214,7 @@ export default async function StatsPage() {
             })}
           </div>
 
-          {/* Ligues */}
+          {/* Ligues — enrichies */}
           <div style={{ background: '#0c0d0f', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{
               padding: '13px 18px',
@@ -229,22 +234,33 @@ export default async function StatsPage() {
                   borderBottom: i < stats.leagues.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none',
                   transition: 'background 150ms',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{
-                        fontSize: 10, fontWeight: 700, color,
-                        background: `${color}18`, border: `1px solid ${color}30`,
-                        padding: '1px 7px', borderRadius: 5, letterSpacing: '0.03em',
-                      }}>{league.name}</span>
-                    </div>
-                    <div style={{ display: 'flex', gap: 10 }}>
-                      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.28)', fontVariantNumeric: 'tabular-nums' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
+                    <span style={{
+                      fontSize: 10, fontWeight: 700, color,
+                      background: `${color}18`, border: `1px solid ${color}30`,
+                      padding: '1px 7px', borderRadius: 5, letterSpacing: '0.03em',
+                    }}>{league.name}</span>
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                      <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.22)', fontVariantNumeric: 'tabular-nums' }}>
                         {league.matchCount} matchs
                       </span>
-                      <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', fontVariantNumeric: 'tabular-nums' }}>
-                        {league.predictionCount.toLocaleString('fr-FR')} prédictions
+                      <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.42)', fontVariantNumeric: 'tabular-nums' }}>
+                        {league.predictionCount.toLocaleString('fr-FR')} préd.
                       </span>
                     </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 10, marginBottom: 6 }}>
+                    <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.3)' }}>
+                      Correct : <span style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>{pct(league.accuracyRate)}</span>
+                    </span>
+                    <span style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+                    <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.3)' }}>
+                      Parfait : <span style={{ color: '#ffc400', fontWeight: 600 }}>{pct(league.perfectRate)}</span>
+                    </span>
+                    <span style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+                    <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.3)' }}>
+                      <span style={{ color: '#34d399', fontWeight: 600 }}>{league.pointsDistributed.toLocaleString('fr-FR')}</span> pts
+                    </span>
                   </div>
                   <div style={{ height: 3, borderRadius: 99, background: 'rgba(255,255,255,0.05)', overflow: 'hidden' }}>
                     <div style={{ height: '100%', width: `${barWidth}%`, background: color, borderRadius: 99, opacity: 0.7 }} />
@@ -254,6 +270,83 @@ export default async function StatsPage() {
             })}
           </div>
         </div>
+
+        {/* Phases par ligue */}
+        <div style={{ background: '#0c0d0f', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, overflow: 'hidden' }}>
+          <div style={{
+            padding: '13px 18px',
+            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          }}>
+            <span style={{ fontSize: 12, fontWeight: 650, color: 'rgba(255,255,255,0.55)', letterSpacing: '-0.01em' }}>Détail par phase</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+
+          {stats.leaguesByPhase.map((league, li) => {
+            const color = lc(league.slug);
+            return (
+              <details key={league.slug} style={{
+                borderBottom: li < stats.leaguesByPhase.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+              }}>
+                <summary className="league-row" style={{
+                  padding: '11px 18px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  transition: 'background 150ms',
+                  userSelect: 'none',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                    <svg className="chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                    <span style={{
+                      fontSize: 10, fontWeight: 700, color,
+                      background: `${color}18`, border: `1px solid ${color}30`,
+                      padding: '1px 7px', borderRadius: 5, letterSpacing: '0.03em',
+                    }}>{league.name}</span>
+                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)' }}>{league.phases.length} phase{league.phases.length > 1 ? 's' : ''}</span>
+                  </div>
+                  <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.18)', fontVariantNumeric: 'tabular-nums' }}>
+                    {league.phases.reduce((s, p) => s + p.predictionCount, 0).toLocaleString('fr-FR')} préd. au total
+                  </span>
+                </summary>
+
+                {/* Phases table */}
+                <div style={{ padding: '0 18px 10px' }}>
+                  {/* Header */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 80px 80px 70px 70px 90px',
+                    padding: '7px 10px 6px',
+                    marginBottom: 2,
+                  }}>
+                    {['Phase', 'Matchs', 'Préd.', 'Correct', 'Parfait', 'Points'].map((h) => (
+                      <span key={h} style={{ fontSize: 9.5, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', textAlign: h !== 'Phase' ? 'right' : 'left' }}>{h}</span>
+                    ))}
+                  </div>
+
+                  {league.phases.map((phase, pi) => (
+                    <div key={phase.serieName} className="phase-row" style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 80px 80px 70px 70px 90px',
+                      padding: '7px 10px',
+                      borderRadius: 7,
+                      transition: 'background 150ms',
+                      borderTop: pi > 0 ? '1px solid rgba(255,255,255,0.03)' : 'none',
+                    }}>
+                      <span style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.6)' }}>{phase.serieName}</span>
+                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.3)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.matchCount}</span>
+                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.45)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.predictionCount.toLocaleString('fr-FR')}</span>
+                      <span style={{ fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,0.55)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{pct(phase.accuracyRate)}</span>
+                      <span style={{ fontSize: 11.5, fontWeight: 600, color: '#ffc400', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{pct(phase.perfectRate)}</span>
+                      <span style={{ fontSize: 11.5, fontWeight: 650, color: '#34d399', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{phase.pointsDistributed.toLocaleString('fr-FR')}</span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            );
+          })}
+        </div>
+
       </div>
     </>
   );
